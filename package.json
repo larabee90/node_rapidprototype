@@ -1,0 +1,19 @@
+{
+  "name": "node_rapidprototype",
+  "version": "1.0.0",
+  "description": "A collaborative rapid prototyping tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larabee90/node_rapidprototype.git"
+  },
+  "author": "Laura Douglas & Ana Merfu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/larabee90/node_rapidprototype/issues"
+  },
+  "homepage": "https://github.com/larabee90/node_rapidprototype#readme"
+}
