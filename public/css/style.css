@@ -1,7 +1,4 @@
-#paintCanvas {
-  border: 1px solid black;
-  background: white; }
-
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:300,400,500");
 html {
   height: 100%; }
 
@@ -19,5 +16,12 @@ body {
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed; }
+
+h1 {
+  font-family: "Work Sans", sans-serif; }
+
+#paintCanvas {
+  border: 1px solid black;
+  background: white; }
 
 /*# sourceMappingURL=style.css.map */
