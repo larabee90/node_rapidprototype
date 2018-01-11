@@ -1,0 +1,32 @@
+//imports
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:300,400,500');
+
+//variables
+$work-sans: 'Work Sans', sans-serif;
+$light-pink: #ff9068;
+$dark-pink: #fd746c;
+
+html {
+  height: 100%;
+}
+
+body {
+  background: #ff9068; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient($light-pink, $dark-pink); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient($light-pink, $dark-pink); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient($light-pink, $dark-pink); /* For Firefox 3.6 to 15 */
+  background: linear-gradient($light-pink, $dark-pink);
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+h1 {
+  font-family: $work-sans;
+}
+
+#paintCanvas {
+  border: 1px solid black;
+  background: white;
+}

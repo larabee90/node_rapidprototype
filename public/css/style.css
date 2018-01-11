@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:300,400,500");
+html {
+  height: 100%; }
+
+body {
+  background: #ff9068;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#ff9068, #fd746c);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#ff9068, #fd746c);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#ff9068, #fd746c);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#ff9068, #fd746c);
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed; }
+
+h1 {
+  font-family: "Work Sans", sans-serif; }
+
+#paintCanvas {
+  border: 1px solid black;
+  background: white; }
+
+/*# sourceMappingURL=style.css.map */
