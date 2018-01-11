@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", function() {
     var socket  = io.connect();
 
     // set canvas to full browser width/height
-    canvas.width = 700;
-    canvas.height = 400;
+    canvas.width = width;
+    canvas.height = height;
 
     // register mouse event handlers
     canvas.onmousedown = function(e){ mouse.click = true; };
@@ -52,3 +52,70 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     mainLoop();
 });
+//
+// var canvas = document.getElementById('paintCanvas');
+// var ctx = canvas.getContext('2d');
+// ctx.lineWidth = 5;
+// ctx.strokeStyle = "red";
+// ctx.lineCap = "round";
+// var isDrawing = false;
+//
+// //mouse events
+// canvas.addEventListener('mousemove', drawingLine);
+//
+// canvas.addEventListener('mousedown', function(){
+//     isDrawing = true;
+//     ctx.beginPath();
+//     ctx.moveTo(posX,posY);
+//     canvas.addEventListener('mousemove', drawingLine);
+// });
+//
+// canvas.addEventListener('mouseup', function(){
+//     isDrawing = false;
+// });
+//
+// //draw initial lines on canvas
+// function drawingLine(evt){
+//     posX = evt.pageX - canvas.offsetLeft;
+//     posY = evt.pageY - canvas.offsetTop;
+//
+//     if (isDrawing === true) {
+//         ctx.lineTo(posX, posY);
+//         ctx.stroke();
+//     }
+// };
+//
+// function colourSwitch(color){
+//     ctx.strokeStyle = color;
+// };
+//
+// function changeWidth(lineWidth){
+//     ctx.lineWidth = lineWidth;
+// };
+//
+// //creating the pattern brush
+// function makeBrush(){
+//     var patternCanvas = document.createElement('canvas');
+//     var circleWidth = 15;
+//     var circleDistance = 5;
+//     var patCtx = patternCanvas.getContext('2d');
+//     patternCanvas.width = patternCanvas.height = circleWidth + circleDistance;
+//
+//     patCtx.fillStyle = "#9C27B0";
+//     patCtx.beginPath();
+//     patCtx.arc(circleWidth / 2, circleWidth / 2, circleWidth / 2, Math.PI * 2, false);
+//     patCtx.closePath();
+//     patCtx.fill();
+//     return ctx.createPattern(patternCanvas, 'repeat');
+// };
+//
+// //setting the function for the pattern brush; is called when button is clicked
+// function drawPattern(){
+//     ctx.lineWidth = 30;
+//     ctx.strokeStyle = makeBrush();
+// };
+//
+// //reset the canvas
+// function clearCanvas(){
+//     ctx.clearRect(0,0,canvas.width, canvas.height);
+// };
