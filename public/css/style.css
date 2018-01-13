@@ -67,13 +67,18 @@ h1 {
         display: inline-block;
         margin-right: 1em; }
 
-.canvasContainer {
+.canvasContainer, .messages {
   width: 50%;
-  height: 60%; }
+  height: 60%;
+}
 
 #paintCanvas {
   background: white;
   width: 100%;
   height: 100%; }
+
+.messages {
+    background: white;
+}
 
 /*# sourceMappingURL=style.css.map */

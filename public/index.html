@@ -17,31 +17,31 @@
                 <!--<div class="color yellow"></div>-->
             <!--</div><br><br><br>-->
 
-            <div class="toolbar">
-                <p>DEVICE:</p>
-                <ul>
-                    <li><button onclick="drawIphone()">iPhone</button></li>
-                    <li><button>iPad</button></li>
-                    <li><button>Desktop</button></li>
-                </ul>
-            </div>
+
             <div class="canvasContainer">
                 <canvas id="paintCanvas" class="paintCanvas">
                     Your browser does not support canvas.
                 </canvas>
+
+                <div class="toolbar">
+                    <p>DEVICE:</p>
+                    <ul>
+                        <li><button id ="mobileButton">iPhone</button></li>
+                        <li><button>iPad</button></li>
+                        <li><button>Desktop</button></li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="messages">
+                <form id="messageForm" action="javascript:void(0)">
+                    <label for="message">&gt;</label>
+                    <input type="text" id="message" required autofocus />
+                </form>
             </div>
 
         </div>
-
-
-        <div id="chat">
-            <div class="messages"></div>
-            <form id="messageForm" action="javascript:void(0)">
-                <label for="message">&gt;</label>
-                <input type="text" id="message" required autofocus />
-            </form>
-        </div>
-
         <script src="socket.io/socket.io.js"></script>
         <script src="../index.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

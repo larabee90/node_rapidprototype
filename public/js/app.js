@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-    // function drawIphone(){
+    function drawIphone() {
         var img = document.createElement("img");
 
-        img.onload = function(){
+        img.onload = function () {
             imgWidth = 208;
             imgHeight = 430;
             centerHor = canvas.width / 2 - imgWidth / 2;
@@ -34,19 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
             context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
         };
         img.src = "../img/iPhoneTemplate.png";
-        // console.log('draw');
-    // }
-
-    // var img = document.createElement("img");
-    //
-    // img.onload = function(){
-    //     imgWidth = 208;
-    //     imgHeight = 430;
-    //     centerHor = canvas.width / 2 - imgWidth / 2;
-    //     centerVert = canvas.height / 2 - imgHeight / 2;
-    //     context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
-    // };
-    // img.src = "../img/iPhoneTemplate.png";
+    }
 
 
 
@@ -102,7 +90,9 @@ socket.on("message", function(message) {
         setTimeout(mainLoop, 25);
     }
     mainLoop();
-});
+    });
+
+
 
 //////////////////////////////////////
 
@@ -135,3 +125,26 @@ function printMessage(message) {
     document.querySelector("div.messages").appendChild(p);
 }
 
+//button tings
+
+document.getElementById("mobileButton").onclick = function () {
+    console.log("onclick works");
+    socket.emit("mobile");
+
+
+    var canvas  = document.getElementById('paintCanvas');
+    var context = canvas.getContext('2d');
+    var img = document.createElement("img");
+
+    img.onload = function () {
+        imgWidth = 208;
+        imgHeight = 430;
+        centerHor = canvas.width / 2 - imgWidth / 2;
+        centerVert = canvas.height / 2 - imgHeight / 2;
+        context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
+    };
+    img.src = "../img/iPhoneTemplate.png";
+
+
+
+};

@@ -46,6 +46,14 @@ io.on('connection', function (socket) {
         console.log(message);
     });
 
+    socket.on("mobile", function(drawPhone) {
+        
+        console.log("mobile button working");
+
+
+
+    });
+
     //socket.emit("message", "Welcome to Cyber Chat");
 });
 
