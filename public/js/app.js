@@ -120,11 +120,9 @@ socket.on("connect", function() {
 
 document.forms[0].onsubmit = function () {
     var input = document.getElementById("message");
-    printMessage(input.value);
-    console.log(input.value);
-    console.log("this runs");
+    //printMessage(input.value);
     socket.emit("chat", input.value);
-    //input.value = '';
+    input.value = '';
 };
 
 function setTitle(title) {
