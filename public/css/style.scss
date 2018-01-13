@@ -3,8 +3,18 @@
 
 //variables
 $work-sans: 'Work Sans', sans-serif;
+$font-bold: 500;
+$font-med: 400;
+$font-light: 300;
+
 $light-pink: #ff9068;
 $dark-pink: #fd746c;
+$white: #fff;
+$grey: #4a494a;
+
+* {
+  box-sizing: border-box;
+}
 
 html {
   height: 100%;
@@ -22,11 +32,63 @@ body {
   background-attachment: fixed;
 }
 
+.container {
+  padding: 2em;
+}
+
 h1 {
   font-family: $work-sans;
 }
 
+.colors {
+  //position: fixed;
+}
+
+.color {
+  display: inline-block;
+  height: 48px;
+  width: 48px;
+}
+
+.color.black { background-color: black; }
+.color.red { background-color: red; }
+.color.green { background-color: green; }
+.color.blue { background-color: blue; }
+.color.yellow { background-color: yellow; }
+
+.toolbar {
+  height: 70px;
+  width: 50%;
+  background-color: $grey;
+  padding-top: 0.12em;
+  padding-left: 1em;
+  & p {
+    display: inline-block;
+    float: left;
+    margin-right: 2em;
+    color: $white;
+    font-family: $work-sans;
+    font-weight: $font-light;
+  }
+  & ul {
+    list-style-type: none;
+    & li {
+      float: left;
+      & button {
+        display: inline-block;
+        margin-right: 1em;
+      }
+    }
+  }
+}
+
+.canvasContainer {
+  width: 50%;
+  height: 60%;
+}
+
 #paintCanvas {
-  border: 1px solid black;
   background: white;
+  width: 100%;
+  height: 100%;
 }

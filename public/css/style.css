@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:300,400,500");
+* {
+  box-sizing: border-box; }
+
 html {
   height: 100%; }
 
@@ -17,16 +20,60 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed; }
 
+.container {
+  padding: 2em; }
+
 h1 {
   font-family: "Work Sans", sans-serif; }
 
-#paintCanvas, #chat {
-  border: 1px solid black;
-  background: white; }
+.color {
+  display: inline-block;
+  height: 48px;
+  width: 48px; }
 
-#chat {
-  width: 700px;
-  height: 500px;
-}
+.color.black {
+  background-color: black; }
+
+.color.red {
+  background-color: red; }
+
+.color.green {
+  background-color: green; }
+
+.color.blue {
+  background-color: blue; }
+
+.color.yellow {
+  background-color: yellow; }
+
+.toolbar {
+  height: 70px;
+  width: 50%;
+  background-color: #4a494a;
+  padding-top: 0.12em;
+  padding-left: 1em; }
+  .toolbar p {
+    display: inline-block;
+    float: left;
+    margin-right: 2em;
+    color: #fff;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 300; }
+  .toolbar ul {
+    list-style-type: none; }
+    .toolbar ul li {
+      float: left; }
+      .toolbar ul li button {
+        display: inline-block;
+        margin-right: 1em; }
+
+.canvasContainer {
+  width: 50%;
+  height: 60%; }
+
+#paintCanvas {
+  background: white;
+  width: 100%;
+  height: 100%; }
 
 /*# sourceMappingURL=style.css.map */
