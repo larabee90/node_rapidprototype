@@ -1,6 +1,9 @@
 /**
  * Created by lauradouglas on 2017-12-11.
  */
+
+///////////////////////////////////////////////////
+
 document.addEventListener("DOMContentLoaded", function() {
     var mouse = {
         click: false,
@@ -11,20 +14,49 @@ document.addEventListener("DOMContentLoaded", function() {
     // get canvas element and create context
     var canvas  = document.getElementById('paintCanvas');
     var context = canvas.getContext('2d');
-    var width   = window.innerWidth;
-    var height  = window.innerHeight;
+    // var width   = window.innerWidth * 0.60;
+    // var height  = window.innerHeight * 0.50;
+    var width   = 600;
+    var height  = 500;
     var socket  = io.connect();
 
-    // set canvas to full browser width/height
+    // function drawIphone(){
+        var img = document.createElement("img");
+
+        img.onload = function(){
+            imgWidth = 208;
+            imgHeight = 430;
+            centerHor = canvas.width / 2 - imgWidth / 2;
+            centerVert = canvas.height / 2 - imgHeight / 2;
+            context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
+        };
+        img.src = "../img/iPhoneTemplate.png";
+        // console.log('draw');
+    // }
+
+    // var img = document.createElement("img");
+    //
+    // img.onload = function(){
+    //     imgWidth = 208;
+    //     imgHeight = 430;
+    //     centerHor = canvas.width / 2 - imgWidth / 2;
+    //     centerVert = canvas.height / 2 - imgHeight / 2;
+    //     context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
+    // };
+    // img.src = "../img/iPhoneTemplate.png";
+
+
+
+
+    // set canvas width and height
     canvas.width = width;
     canvas.height = height;
 
     // register mouse event handlers
-    canvas.onmousedown = function(e){ mouse.click = true; };
+    canvas.onmousedown = function(e){ mouse.click = true; console.log(mouse.pos) };
     canvas.onmouseup = function(e){ mouse.click = false; };
 
     canvas.onmousemove = function(e) {
-        // normalize mouse position to range 0.0 - 1.0
         mouse.pos.x = e.clientX / width;
         mouse.pos.y = e.clientY / height;
         mouse.move = true;
@@ -34,10 +66,21 @@ document.addEventListener("DOMContentLoaded", function() {
     socket.on('draw_line', function (data) {
         var line = data.line;
         context.beginPath();
-        context.moveTo(line[0].x * width, line[0].y * height);
-        context.lineTo(line[1].x * width, line[1].y * height);
+        context.moveTo(line[0].x * width - canvas.offsetLeft, line[0].y * height - canvas.offsetTop);
+        context.lineTo(line[1].x * width - canvas.offsetLeft, line[1].y * height - canvas.offsetTop);
         context.stroke();
     });
+
+    // function getMousePos(canvas, evt) {
+    //     var rect = canvas.getBoundingClientRect(), // abs. size of element
+    //         scaleX = canvas.width / rect.width,    // relationship bitmap vs. element for X
+    //         scaleY = canvas.height / rect.height;  // relationship bitmap vs. element for Y
+    //
+    //     return {
+    //         x: (evt.clientX - rect.left) * scaleX,   // scale mouse coordinates after they have
+    //         y: (evt.clientY - rect.top) * scaleY     // been adjusted to be relative to element
+    //     }
+    // }
 
     // main loop, running every 25ms
     function mainLoop() {
@@ -52,70 +95,5 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     mainLoop();
 });
-//
-// var canvas = document.getElementById('paintCanvas');
-// var ctx = canvas.getContext('2d');
-// ctx.lineWidth = 5;
-// ctx.strokeStyle = "red";
-// ctx.lineCap = "round";
-// var isDrawing = false;
-//
-// //mouse events
-// canvas.addEventListener('mousemove', drawingLine);
-//
-// canvas.addEventListener('mousedown', function(){
-//     isDrawing = true;
-//     ctx.beginPath();
-//     ctx.moveTo(posX,posY);
-//     canvas.addEventListener('mousemove', drawingLine);
-// });
-//
-// canvas.addEventListener('mouseup', function(){
-//     isDrawing = false;
-// });
-//
-// //draw initial lines on canvas
-// function drawingLine(evt){
-//     posX = evt.pageX - canvas.offsetLeft;
-//     posY = evt.pageY - canvas.offsetTop;
-//
-//     if (isDrawing === true) {
-//         ctx.lineTo(posX, posY);
-//         ctx.stroke();
-//     }
-// };
-//
-// function colourSwitch(color){
-//     ctx.strokeStyle = color;
-// };
-//
-// function changeWidth(lineWidth){
-//     ctx.lineWidth = lineWidth;
-// };
-//
-// //creating the pattern brush
-// function makeBrush(){
-//     var patternCanvas = document.createElement('canvas');
-//     var circleWidth = 15;
-//     var circleDistance = 5;
-//     var patCtx = patternCanvas.getContext('2d');
-//     patternCanvas.width = patternCanvas.height = circleWidth + circleDistance;
-//
-//     patCtx.fillStyle = "#9C27B0";
-//     patCtx.beginPath();
-//     patCtx.arc(circleWidth / 2, circleWidth / 2, circleWidth / 2, Math.PI * 2, false);
-//     patCtx.closePath();
-//     patCtx.fill();
-//     return ctx.createPattern(patternCanvas, 'repeat');
-// };
-//
-// //setting the function for the pattern brush; is called when button is clicked
-// function drawPattern(){
-//     ctx.lineWidth = 30;
-//     ctx.strokeStyle = makeBrush();
-// };
-//
-// //reset the canvas
-// function clearCanvas(){
-//     ctx.clearRect(0,0,canvas.width, canvas.height);
-// };
+
+//////////////////////////////////////
