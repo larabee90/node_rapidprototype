@@ -20,8 +20,13 @@ body {
 h1 {
   font-family: "Work Sans", sans-serif; }
 
-#paintCanvas {
+#paintCanvas, #chat {
   border: 1px solid black;
   background: white; }
+
+#chat {
+  width: 700px;
+  height: 500px;
+}
 
 /*# sourceMappingURL=style.css.map */
