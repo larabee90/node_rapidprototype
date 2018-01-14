@@ -4,39 +4,20 @@
 
 ///////////////////////////////////////////////////
 $( document ).ready(function() {
-
-    document.addEventListener("DOMContentLoaded", function () {
-        var mouse = {
-            click: false,
-            move: false,
-            pos: {x: 0, y: 0},
-            pos_prev: false
-        };
-        // get canvas element and create context
-        var canvas = document.getElementById('paintCanvas');
-        var context = canvas.getContext('2d');
-        // var width   = window.innerWidth * 0.60;
-        // var height  = window.innerHeight * 0.50;
-        var width = 600;
-        var height = 500;
-        var socket = io.connect();
-
-
-        function drawIphone() {
-            var img = document.createElement("img");
-
-        img.onload = function () {
-            imgWidth = 208;
-            imgHeight = 430;
-            centerHor = canvas.width / 2 - imgWidth / 2;
-            centerVert = canvas.height / 2 - imgHeight / 2;
-            context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
-        };
-        img.src = "../img/iPhoneTemplate.png";
-    }
-
-
-
+    var mouse = {
+        click: false,
+        move: false,
+        pos: {x: 0, y: 0},
+        pos_prev: false
+    };
+    // get canvas element and create context
+    var canvas = document.getElementById('paintCanvas');
+    var context = canvas.getContext('2d');
+    // var width   = window.innerWidth * 0.60;
+    // var height  = window.innerHeight * 0.50;
+    var width = 600;
+    var height = 500;
+    var socket = io.connect();
 
     // set canvas width and height
     canvas.width = width;
@@ -46,13 +27,11 @@ $( document ).ready(function() {
     canvas.onmousedown = function(e){ mouse.click = true; console.log(mouse.pos) };
     canvas.onmouseup = function(e){ mouse.click = false; };
 
-
     canvas.onmousemove = function(e) {
         mouse.pos.x = e.clientX / width;
         mouse.pos.y = e.clientY / height;
         mouse.move = true;
     };
-
 
     // draw line received from server
     socket.on('draw_line', function (data) {
@@ -62,17 +41,6 @@ $( document ).ready(function() {
         context.lineTo(line[1].x * width - canvas.offsetLeft, line[1].y * height - canvas.offsetTop);
         context.stroke();
     });
-
-    // function getMousePos(canvas, evt) {
-    //     var rect = canvas.getBoundingClientRect(), // abs. size of element
-    //         scaleX = canvas.width / rect.width,    // relationship bitmap vs. element for X
-    //         scaleY = canvas.height / rect.height;  // relationship bitmap vs. element for Y
-    //
-    //     return {
-    //         x: (evt.clientX - rect.left) * scaleX,   // scale mouse coordinates after they have
-    //         y: (evt.clientY - rect.top) * scaleY     // been adjusted to be relative to element
-    //     }
-    // }
 
     // main loop, running every 25ms
     function mainLoop() {
@@ -86,10 +54,7 @@ $( document ).ready(function() {
         setTimeout(mainLoop, 25);
     }
     mainLoop();
-    });
-
-
-
+    
 //////////////////////////////////////
 
 //chat tings
