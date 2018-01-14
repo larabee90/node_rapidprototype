@@ -84,6 +84,7 @@ $( document ).ready(function() {
         // check if the user is drawing
         if (mouse.click && mouse.move && mouse.pos_prev) {
             // send line to to the server
+            console.log(userColour);
             socket.emit('draw_line', { line: [ mouse.pos, mouse.pos_prev ] }, userColour);
             mouse.move = false;
         }
@@ -188,7 +189,6 @@ desktopButton.onclick = function () {
     socket.on("newUser", function (user, colour) {
         console.log("new user added: " + user);
         console.log(user + " colour is " + colour);
-
         var newUser = document.createElement("div");
         $(newUser).addClass("activeUser");
         $(newUser).css("background-color" , colour);
@@ -197,13 +197,18 @@ desktopButton.onclick = function () {
 
     });
 
+
     usernameSubmit.onclick = function () {
         username = usernameInput.value
-        userColour = colours[0];
-        socket.emit("addUsername", username, userColour);
+        socket.emit("addUsername", username);
         $(loginContainer).hide()
 
     };
+
+    socket.on("assignColour", function(colour){
+        userColour = colour;
+        console.log(colour);
+    })
 
 
 //var $currentInput = $usernameInput.focus();

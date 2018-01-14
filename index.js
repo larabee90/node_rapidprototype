@@ -26,6 +26,8 @@ var linesDrawn = [];
 
 var users = [];
 
+var coloursAvailable = ["red", "green", "blue"];
+
 // event-handler for new incoming connections
 io.on('connection', function (socket) {
 
@@ -52,10 +54,25 @@ io.on('connection', function (socket) {
         io.emit("drawTemplate", img);
     });
 
-    socket.on("addUsername", function(username, colour) {
-        console.log("new user added: " + username + ", their colour is " + colour);
-        users.push(username);
-        io.emit("newUser", username, colour);
+    socket.on("addUsername", function(username) {
+        var user = {
+
+            'name': username,
+            'colour': coloursAvailable[0]
+
+        };
+        users.push(user);
+        console.log(users);
+
+        for(i = 0; i < users.length; i++) {
+
+            console.log("loop works");
+            socket.emit("newUser", users[i].name , users[i].colour);
+
+        }
+        socket.emit("assignColour", user.colour);
+        socket.broadcast.emit("newUser", username, user.colour);
+        coloursAvailable.shift();
 
     });
 
