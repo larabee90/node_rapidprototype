@@ -46,12 +46,18 @@ io.on('connection', function (socket) {
     });
 
     socket.on("mobile", function(drawPhone) {
-
         console.log("mobile button working");
         io.emit("drawTemplate");
+    });
 
+    socket.on("tablet", function(drawPhone) {
+        console.log("tablet button working");
+        io.emit("drawTemplate");
+    });
 
-
+    socket.on("desktop", function(drawPhone) {
+        console.log("desktop button working");
+        io.emit("drawTemplate");
     });
 
     //socket.emit("message", "Welcome to Cyber Chat");
