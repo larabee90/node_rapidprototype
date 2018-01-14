@@ -42,8 +42,8 @@ io.on('connection', function (socket) {
         io.emit('draw_line', { line: data.line });
     });
 
-    socket.on("chat", function(message) {
-        io.emit("message", message);
+    socket.on("chat", function(message, user) {
+        io.emit("message", message, user);
         console.log(message);
     });
 

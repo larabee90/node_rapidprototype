@@ -107,15 +107,15 @@ $( document ).ready(function() {
         setTitle("Connected to Cyber Chat");
     });
 
-    socket.on("message", function (message) {
-        printMessage(message);
+    socket.on("message", function (message, user) {
+        printMessage(user + ": " + message);
     });
 
 
     document.forms[0].onsubmit = function () {
         var input = document.getElementById("message");
         //printMessage(input.value);
-        socket.emit("chat", input.value);
+        socket.emit("chat", input.value, username);
         input.value = '';
     };
 
