@@ -24,6 +24,8 @@ app.get('/', function(req, res){
 
 var linesDrawn = [];
 
+var users = [];
+
 // event-handler for new incoming connections
 io.on('connection', function (socket) {
 
@@ -54,8 +56,16 @@ io.on('connection', function (socket) {
 
     });
 
+    socket.on("addUsername", function(username) {
+        console.log("new user added: " + username);
+        users.push(username);
+        io.emit("newUser", username);
+
+    });
+
     //socket.emit("message", "Welcome to Cyber Chat");
 });
+
 
 
 console.log('app listening on port 3000');
