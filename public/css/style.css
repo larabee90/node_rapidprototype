@@ -39,21 +39,6 @@ h1 {
   height: 48px;
   width: 48px; }
 
-.color.black {
-  background-color: black; }
-
-.color.red {
-  background-color: red; }
-
-.color.green {
-  background-color: green; }
-
-.color.blue {
-  background-color: blue; }
-
-.color.yellow {
-  background-color: yellow; }
-
 .toolbar {
   height: 70px;
   width: 50%;
@@ -69,11 +54,13 @@ h1 {
     font-weight: 300; }
   .toolbar ul {
     list-style-type: none; }
-    .toolbar ul li {
-      float: left; }
-      .toolbar ul li button {
-        display: inline-block;
-        margin-right: 1em; }
+    .toolbar ul li button {
+      display: inline-block;
+      margin-right: 1em; }
+  .toolbar.deviceButtons {
+    float: left; }
+  .toolbar.toolButtons {
+    float: right; }
 
 .canvasContainer {
   width: 50%;
