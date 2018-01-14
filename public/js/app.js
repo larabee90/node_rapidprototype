@@ -85,15 +85,15 @@ socket.on("connect", function() {
     setTitle("Connected to Cyber Chat");
 });
 
-    socket.on("message", function (message, user) {
-        printMessage(user + ": " + message);
+    socket.on("message", function (message, user, colour) {
+        printMessage(message, user, colour);
     });
 
 
     document.forms[0].onsubmit = function () {
         var input = document.getElementById("message");
         //printMessage(input.value);
-        socket.emit("chat", input.value, username);
+        socket.emit("chat", input.value, username, userColour);
         input.value = '';
     };
 
@@ -102,9 +102,11 @@ socket.on("connect", function() {
         document.querySelector("h1").innerHTML = title;
     }
 
-    function printMessage(message) {
+    function printMessage(message, user, colour) {
         var p = document.createElement("p");
-        p.innerText = message;
+
+        p.innerHTML = "<span style = 'color:" + colour + "'>" + user + ": </span>" + message;
+
         document.querySelector("div.messages").appendChild(p);
     }
 
@@ -164,6 +166,11 @@ desktopButton.onclick = function () {
     socket.on("newUser", function (user, colour) {
         console.log("new user added: " + user);
         console.log(user + " colour is " + colour);
+
+        var newUser = document.createElement("div");
+        $(newUser).addClass("activeUser");
+        $(newUser).css("background-color" , colour);
+        document.getElementById("activeUsers").appendChild(newUser);
         colours.shift();
 
     });

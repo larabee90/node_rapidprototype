@@ -43,6 +43,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on("chat", function(message, user, colour) {
+        console.log(colour);
         io.emit("message", message, user, colour);
         console.log(message);
     });
