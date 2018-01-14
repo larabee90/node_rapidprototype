@@ -37,11 +37,11 @@ io.on('connection', function (socket) {
     }
 
     // add handler for message type "draw_line".
-    socket.on('draw_line', function (data, colour) {
+    socket.on('draw_line', function (data, colour, tool) {
         // add received line to history
         linesDrawn.push(data.line);
         // send line to all clients
-        io.emit('draw_line', { line: data.line }, colour);
+        io.emit('draw_line', { line: data.line }, colour, tool);
     });
 
     socket.on("chat", function(message, user, colour) {
@@ -71,6 +71,7 @@ io.on('connection', function (socket) {
 
         }
         socket.emit("assignColour", user.colour);
+
         socket.broadcast.emit("newUser", username, user.colour);
         coloursAvailable.shift();
 

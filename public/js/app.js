@@ -63,7 +63,7 @@ $( document ).ready(function() {
     });
 
     // draw line received from server
-    socket.on('draw_line', function (data, colour) {
+    socket.on('draw_line', function (data, colour, tool) {
         var line = data.line;
         context.beginPath();
         context.moveTo(line[0].x * width - canvas.offsetLeft, line[0].y * height - canvas.offsetTop);
@@ -86,7 +86,7 @@ $( document ).ready(function() {
         if (mouse.click && mouse.move && mouse.pos_prev) {
             // send line to to the server
             console.log(userColour);
-            socket.emit('draw_line', { line: [ mouse.pos, mouse.pos_prev ] }, userColour);
+            socket.emit('draw_line', { line: [ mouse.pos, mouse.pos_prev ] }, userColour, tool);
             mouse.move = false;
         }
         mouse.pos_prev = {x: mouse.pos.x, y: mouse.pos.y};
@@ -195,6 +195,7 @@ desktopButton.onclick = function () {
         $(newUser).css("background-color" , colour);
         document.getElementById("activeUsers").appendChild(newUser);
         colours.shift();
+
 
     });
 
