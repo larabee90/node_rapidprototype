@@ -36,15 +36,37 @@ $( document ).ready(function() {
     canvas.width = width;
     canvas.height = height;
 
+    var mode = 'pen';
+
     // register mouse event handlers
-    canvas.onmousedown = function(e){ mouse.click = true; console.log(mouse.pos) };
+    canvas.onmousedown = function(e){ mouse.click = true; };
     canvas.onmouseup = function(e){ mouse.click = false; };
 
     canvas.onmousemove = function(e) {
         mouse.pos.x = e.clientX / width;
         mouse.pos.y = e.clientY / height;
         mouse.move = true;
+        if (mouse.click === true) {
+            if (mode === 'pen'){
+                context.lineWidth = 5;
+                context.lineCap = 'round';
+                context.globalCompositeOperation="source-over";
+            } else {
+                context.lineWidth = 8;
+                context.lineCap = 'round';
+                context.globalCompositeOperation="destination-out";
+                context.fill();
+            }
+        }
     };
+
+    $('#penMode').click(function(){
+        mode = 'pen';
+    });
+
+    $('#eraserMode').click(function(){
+        mode = 'eraser';
+    });
 
     // draw line received from server
     socket.on('draw_line', function (data, colour) {

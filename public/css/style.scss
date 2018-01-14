@@ -40,21 +40,11 @@ h1 {
   font-family: $work-sans;
 }
 
-.colors {
-  //position: fixed;
-}
-
 .color {
   display: inline-block;
   height: 48px;
   width: 48px;
 }
-
-.color.black { background-color: black; }
-.color.red { background-color: red; }
-.color.green { background-color: green; }
-.color.blue { background-color: blue; }
-.color.yellow { background-color: yellow; }
 
 .toolbar {
   height: 70px;
@@ -73,12 +63,17 @@ h1 {
   & ul {
     list-style-type: none;
     & li {
-      float: left;
       & button {
         display: inline-block;
         margin-right: 1em;
       }
     }
+  }
+  &.deviceButtons {
+    float: left;
+  }
+  &.toolButtons {
+    float: right;
   }
 }
 
@@ -94,7 +89,7 @@ h1 {
   position: absolute;
   width: 600px;
   height: 500px;
-  background-color: #fff;
+  background-color: $white;
 }
 
 #paintCanvas {

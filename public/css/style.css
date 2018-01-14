@@ -5,7 +5,7 @@
 html {
   height: 100%; }
 
-body, #loginContainer {
+body {
   background: #ff9068;
   /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(#ff9068, #fd746c);
@@ -20,14 +20,6 @@ body, #loginContainer {
   background-repeat: no-repeat;
   background-attachment: fixed; }
 
-#loginContainer {
-    width: 100%;
-    height:100%;
-    position: absolute;
-    z-index: 99;
-    
-}
-
 .container {
   padding: 2em; }
 
@@ -38,21 +30,6 @@ h1 {
   display: inline-block;
   height: 48px;
   width: 48px; }
-
-.color.black {
-  background-color: black; }
-
-.color.red {
-  background-color: red; }
-
-.color.green {
-  background-color: green; }
-
-.color.blue {
-  background-color: blue; }
-
-.color.yellow {
-  background-color: yellow; }
 
 .toolbar {
   height: 70px;
@@ -69,15 +46,16 @@ h1 {
     font-weight: 300; }
   .toolbar ul {
     list-style-type: none; }
-    .toolbar ul li {
-      float: left; }
-      .toolbar ul li button {
-        display: inline-block;
-        margin-right: 1em; }
+    .toolbar ul li button {
+      display: inline-block;
+      margin-right: 1em; }
+  .toolbar.deviceButtons {
+    float: left; }
+  .toolbar.toolButtons {
+    float: right; }
 
 .canvasContainer {
   width: 50%;
-<<<<<<< HEAD
   height: 80%;
   position: relative; }
 
@@ -88,18 +66,13 @@ h1 {
   width: 600px;
   height: 500px;
   background-color: #fff; }
-=======
-  height: 60%; }
->>>>>>> Ana
 
 #paintCanvas {
-  z-index: 998;
+  z-index: 999;
   background: rgba(255, 255, 255, 0);
   width: 100%;
   height: 100%; }
 
-<<<<<<< HEAD
-=======
 redUser {
   color: red; }
 
@@ -109,5 +82,4 @@ blueUser {
 greenUser {
   colour: Purple; }
 
->>>>>>> Ana
 /*# sourceMappingURL=style.css.map */
