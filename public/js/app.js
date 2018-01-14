@@ -7,7 +7,7 @@ $( document ).ready(function() {
     var colours = ["red", "green", "blue"];
     var username = "";
     var userColour =  "";
-    var connected = false;
+    var isLoggedIn = false;
     var typing = false;
     var lastTypingTime;
 
@@ -188,13 +188,15 @@ desktopButton.onclick = function () {
 //login tings
 
     socket.on("newUser", function (user, colour) {
-        console.log("new user added: " + user);
-        console.log(user + " colour is " + colour);
-        var newUser = document.createElement("div");
-        $(newUser).addClass("activeUser");
-        $(newUser).css("background-color" , colour);
-        document.getElementById("activeUsers").appendChild(newUser);
-        colours.shift();
+        if (isLoggedIn) {
+            console.log("new user added: " + user);
+            console.log(user + " colour is " + colour);
+            var newUser = document.createElement("div");
+            $(newUser).addClass("activeUser");
+            $(newUser).css("background-color" , colour);
+            document.getElementById("activeUsers").appendChild(newUser);
+            colours.shift();
+        }
 
 
     });
@@ -204,6 +206,7 @@ desktopButton.onclick = function () {
         username = usernameInput.value
         socket.emit("addUsername", username);
         $(loginContainer).hide()
+        isLoggedIn = true
 
     };
 
