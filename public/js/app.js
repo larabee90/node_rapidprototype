@@ -110,7 +110,6 @@ socket.on("connect", function() {
 
 //button tings
 
-    function drawTemplate() {
 
 var canvas = document.getElementById('paintCanvas');
 var context = canvas.getContext('2d');
@@ -136,9 +135,9 @@ function drawTemplate(template) {
     //     context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
     // };
     // img.src = template;
-}
+};
 
-    socket.on("drawTemplate", function () {
+socket.on("drawTemplate", function () {
         drawTemplate();
     });
 
