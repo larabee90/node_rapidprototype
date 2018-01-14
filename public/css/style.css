@@ -73,14 +73,14 @@ h1 {
   width: 100%;
   height: 100%; }
 
-redUser {
+.redUser {
   color: red; }
 
-blueUser {
+.blueUser {
   color: blue; }
 
-greenUser {
-  colour: Purple; }
+.greenUser {
+  color: Purple; }
 
 #loginContainer {
   width: 100%;
