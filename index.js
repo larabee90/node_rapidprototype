@@ -44,20 +44,24 @@ io.on('connection', function (socket) {
         io.emit("message", message);
         console.log(message);
     });
+    //
+    // socket.on("mobile", function(drawPhone) {
+    //     console.log("mobile button working");
+    //     io.emit("drawTemplate");
+    // });
+    //
+    // socket.on("tablet", function(drawPhone) {
+    //     console.log("tablet button working");
+    //     io.emit("drawTemplate");
+    // });
+    //
+    // socket.on("desktop", function(drawPhone) {
+    //     console.log("desktop button working");
+    //     io.emit("drawTemplate");
+    // });
 
-    socket.on("mobile", function(drawPhone) {
-        console.log("mobile button working");
-        io.emit("drawTemplate");
-    });
-
-    socket.on("tablet", function(drawPhone) {
-        console.log("tablet button working");
-        io.emit("drawTemplate");
-    });
-
-    socket.on("desktop", function(drawPhone) {
-        console.log("desktop button working");
-        io.emit("drawTemplate");
+    socket.on("newTemplate", function(img){
+        io.emit("drawTemplate", img);
     });
 
     //socket.emit("message", "Welcome to Cyber Chat");
