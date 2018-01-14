@@ -47,13 +47,8 @@ io.on('connection', function (socket) {
         console.log(message);
     });
 
-    socket.on("mobile", function(drawPhone) {
-
-        console.log("mobile button working");
-        io.emit("drawTemplate");
-
-
-
+    socket.on("newTemplate", function(img){
+        io.emit("drawTemplate", img);
     });
 
     socket.on("addUsername", function(username) {
@@ -65,7 +60,6 @@ io.on('connection', function (socket) {
 
     //socket.emit("message", "Welcome to Cyber Chat");
 });
-
 
 
 console.log('app listening on port 3000');

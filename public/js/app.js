@@ -25,87 +25,84 @@ $( document ).ready(function() {
         function drawIphone() {
             var img = document.createElement("img");
 
-            img.onload = function () {
-                imgWidth = 208;
-                imgHeight = 430;
-                centerHor = canvas.width / 2 - imgWidth / 2;
-                centerVert = canvas.height / 2 - imgHeight / 2;
-                context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
-            };
-            img.src = "../img/iPhoneTemplate.png";
-        }
-
-
-        // set canvas width and height
-        canvas.width = width;
-        canvas.height = height;
-
-        // register mouse event handlers
-        canvas.onmousedown = function (e) {
-            mouse.click = true;
-            console.log(mouse.pos)
+        img.onload = function () {
+            imgWidth = 208;
+            imgHeight = 430;
+            centerHor = canvas.width / 2 - imgWidth / 2;
+            centerVert = canvas.height / 2 - imgHeight / 2;
+            context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
         };
-        canvas.onmouseup = function (e) {
-            mouse.click = false;
-        };
+        img.src = "../img/iPhoneTemplate.png";
+    }
 
 
-        canvas.onmousemove = function (e) {
-            mouse.pos.x = e.clientX / width;
-            mouse.pos.y = e.clientY / height;
-            mouse.move = true;
-        };
 
 
-        // draw line received from server
-        socket.on('draw_line', function (data) {
-            var line = data.line;
-            context.beginPath();
-            context.moveTo(line[0].x * width - canvas.offsetLeft, line[0].y * height - canvas.offsetTop);
-            context.lineTo(line[1].x * width - canvas.offsetLeft, line[1].y * height - canvas.offsetTop);
-            context.stroke();
-        });
+    // set canvas width and height
+    canvas.width = width;
+    canvas.height = height;
 
-        // function getMousePos(canvas, evt) {
-        //     var rect = canvas.getBoundingClientRect(), // abs. size of element
-        //         scaleX = canvas.width / rect.width,    // relationship bitmap vs. element for X
-        //         scaleY = canvas.height / rect.height;  // relationship bitmap vs. element for Y
-        //
-        //     return {
-        //         x: (evt.clientX - rect.left) * scaleX,   // scale mouse coordinates after they have
-        //         y: (evt.clientY - rect.top) * scaleY     // been adjusted to be relative to element
-        //     }
-        // }
+    // register mouse event handlers
+    canvas.onmousedown = function(e){ mouse.click = true; console.log(mouse.pos) };
+    canvas.onmouseup = function(e){ mouse.click = false; };
 
-        // main loop, running every 25ms
-        function mainLoop() {
-            // check if the user is drawing
-            if (mouse.click && mouse.move && mouse.pos_prev) {
-                // send line to to the server
-                socket.emit('draw_line', {line: [mouse.pos, mouse.pos_prev]});
-                mouse.move = false;
-            }
-            mouse.pos_prev = {x: mouse.pos.x, y: mouse.pos.y};
-            setTimeout(mainLoop, 25);
-        }
 
-        mainLoop();
+    canvas.onmousemove = function(e) {
+        mouse.pos.x = e.clientX / width;
+        mouse.pos.y = e.clientY / height;
+        mouse.move = true;
+    };
+
+
+    // draw line received from server
+    socket.on('draw_line', function (data) {
+        var line = data.line;
+        context.beginPath();
+        context.moveTo(line[0].x * width - canvas.offsetLeft, line[0].y * height - canvas.offsetTop);
+        context.lineTo(line[1].x * width - canvas.offsetLeft, line[1].y * height - canvas.offsetTop);
+        context.stroke();
     });
+
+    // function getMousePos(canvas, evt) {
+    //     var rect = canvas.getBoundingClientRect(), // abs. size of element
+    //         scaleX = canvas.width / rect.width,    // relationship bitmap vs. element for X
+    //         scaleY = canvas.height / rect.height;  // relationship bitmap vs. element for Y
+    //
+    //     return {
+    //         x: (evt.clientX - rect.left) * scaleX,   // scale mouse coordinates after they have
+    //         y: (evt.clientY - rect.top) * scaleY     // been adjusted to be relative to element
+    //     }
+    // }
+
+    // main loop, running every 25ms
+    function mainLoop() {
+        // check if the user is drawing
+        if (mouse.click && mouse.move && mouse.pos_prev) {
+            // send line to to the server
+            socket.emit('draw_line', { line: [ mouse.pos, mouse.pos_prev ] });
+            mouse.move = false;
+        }
+        mouse.pos_prev = {x: mouse.pos.x, y: mouse.pos.y};
+        setTimeout(mainLoop, 25);
+    }
+    mainLoop();
+    });
+
 
 
 //////////////////////////////////////
 
 //chat tings
 
-    var socket = io("http://localhost:3000");
+var socket = io("http://localhost:3000");
 
-    socket.on("disconnect", function () {
-        setTitle("Disconnected");
-    });
+socket.on("disconnect", function() {
+    setTitle("Disconnected");
+});
 
-    socket.on("connect", function () {
-        setTitle("Connected to Cyber Chat");
-    });
+socket.on("connect", function() {
+    setTitle("Connected to Cyber Chat");
+});
 
     socket.on("message", function (message, user) {
         printMessage(user + ": " + message);
@@ -118,6 +115,7 @@ $( document ).ready(function() {
         socket.emit("chat", input.value, username);
         input.value = '';
     };
+
 
     function setTitle(title) {
         document.querySelector("h1").innerHTML = title;
