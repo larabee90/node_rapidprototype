@@ -4,6 +4,19 @@
 
 ///////////////////////////////////////////////////
 $( document ).ready(function() {
+    var colours = ["red", "green", "blue"];
+    var username = "";
+    var userColour =  "";
+    var connected = false;
+    var typing = false;
+    var lastTypingTime;
+
+    var loginContainer = document.getElementById("loginContainer");
+    var enterUsername = document.getElementById("enterUsername");
+    var usernameInput = document.getElementById("usernameInput");
+    var usernameSubmit = document.getElementById("usernameSubmit");
+
+
     var mouse = {
         click: false,
         move: false,
@@ -34,12 +47,14 @@ $( document ).ready(function() {
     };
 
     // draw line received from server
-    socket.on('draw_line', function (data) {
+    socket.on('draw_line', function (data, colour) {
         var line = data.line;
         context.beginPath();
         context.moveTo(line[0].x * width - canvas.offsetLeft, line[0].y * height - canvas.offsetTop);
         context.lineTo(line[1].x * width - canvas.offsetLeft, line[1].y * height - canvas.offsetTop);
+        context.strokeStyle = colour;
         context.stroke();
+        console.log(context.strokeStyle);
     });
 
     // main loop, running every 25ms
@@ -47,7 +62,7 @@ $( document ).ready(function() {
         // check if the user is drawing
         if (mouse.click && mouse.move && mouse.pos_prev) {
             // send line to to the server
-            socket.emit('draw_line', { line: [ mouse.pos, mouse.pos_prev ] });
+            socket.emit('draw_line', { line: [ mouse.pos, mouse.pos_prev ] }, userColour);
             mouse.move = false;
         }
         mouse.pos_prev = {x: mouse.pos.x, y: mouse.pos.y};
@@ -70,33 +85,32 @@ socket.on("connect", function() {
     setTitle("Connected to Cyber Chat");
 });
 
-socket.on("message", function(message) {
-    printMessage(message);
-});
+    socket.on("message", function (message, user) {
+        printMessage(user + ": " + message);
+    });
 
 
-document.forms[0].onsubmit = function () {
-    var input = document.getElementById("message");
-    //printMessage(input.value);
-    socket.emit("chat", input.value);
-    input.value = '';
-};
+    document.forms[0].onsubmit = function () {
+        var input = document.getElementById("message");
+        //printMessage(input.value);
+        socket.emit("chat", input.value, username);
+        input.value = '';
+    };
 
-function setTitle(title) {
-    document.querySelector("h1").innerHTML = title;
-}
 
-function printMessage(message) {
-    var p = document.createElement("p");
-    p.innerText = message;
-    document.querySelector("div.messages").appendChild(p);
-}
+    function setTitle(title) {
+        document.querySelector("h1").innerHTML = title;
+    }
+
+    function printMessage(message) {
+        var p = document.createElement("p");
+        p.innerText = message;
+        document.querySelector("div.messages").appendChild(p);
+    }
 
 //button tings
 
-var mobileButton = document.getElementById("mobileButton");
-var tabletButton = document.getElementById("tabletButton");
-var desktopButton = document.getElementById("desktopButton");
+    function drawTemplate() {
 
 var canvas = document.getElementById('paintCanvas');
 var context = canvas.getContext('2d');
@@ -124,9 +138,9 @@ function drawTemplate(template) {
     // img.src = template;
 }
 
-socket.on ("drawTemplate", function(template) {
-    drawTemplate(template);
-});
+    socket.on("drawTemplate", function () {
+        drawTemplate();
+    });
 
 mobileButton.onclick = function () {
     var img = "url(../img/iPhoneTemplate.png)";
@@ -148,27 +162,22 @@ desktopButton.onclick = function () {
 
 //login tings
 
-    var loginContainer = document.getElementById("loginContainer");
-    var enterUsername = document.getElementById("enterUsername");
-    var usernameInput = document.getElementById("usernameInput");
-    var usernameSubmit = document.getElementById("usernameSubmit");
-
-    socket.on("newUser", function (user) {
+    socket.on("newUser", function (user, colour) {
         console.log("new user added: " + user);
+        console.log(user + " colour is " + colour);
+        colours.shift();
 
     });
 
     usernameSubmit.onclick = function () {
         username = usernameInput.value
-        socket.emit("addUsername", username);
+        userColour = colours[0];
+        socket.emit("addUsername", username, userColour);
         $(loginContainer).hide()
 
     };
 
-    var username = "";
-    var connected = false;
-    var typing = false;
-    var lastTypingTime;
+
 //var $currentInput = $usernameInput.focus();
 
 });
