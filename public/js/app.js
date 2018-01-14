@@ -98,21 +98,30 @@ var mobileButton = document.getElementById("mobileButton");
 var tabletButton = document.getElementById("tabletButton");
 var desktopButton = document.getElementById("desktopButton");
 
-        var canvas = document.getElementById('paintCanvas');
-        var context = canvas.getContext('2d');
-        var img = document.createElement("img");
-function drawTemplate(template) {
-    context.clearRect(0,0,canvas.width, canvas.height);
-    var img = document.createElement("img");
+var canvas = document.getElementById('paintCanvas');
+var context = canvas.getContext('2d');
+var img = document.createElement("img");
 
-    img.onload = function () {
-        imgWidth = img.width * 0.6;
-        imgHeight = img.height * 0.6;
-        centerHor = canvas.width / 2 - imgWidth / 2;
-        centerVert = canvas.height / 2 - imgHeight / 2;
-        context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
-    };
-    img.src = template;
+function drawTemplate(template) {
+    // document.getElementById('templateImage').appendChild(img);
+    templateDiv = document.getElementById('templateImage');
+    backgroundImg = template;
+
+    templateDiv.style.backgroundImage = backgroundImg;
+    templateDiv.style.backgroundRepeat = 'no-repeat';
+    templateDiv.style.backgroundPosition = 'center';
+    console.log('bg');
+    // context.clearRect(0,0,canvas.width, canvas.height);
+    // var img = document.createElement("img");
+    //
+    // img.onload = function () {
+    //     imgWidth = img.width * 0.6;
+    //     imgHeight = img.height * 0.6;
+    //     centerHor = canvas.width / 2 - imgWidth / 2;
+    //     centerVert = canvas.height / 2 - imgHeight / 2;
+    //     context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
+    // };
+    // img.src = template;
 }
 
 socket.on ("drawTemplate", function(template) {
@@ -120,16 +129,23 @@ socket.on ("drawTemplate", function(template) {
 });
 
 mobileButton.onclick = function () {
-    var img = "../img/iPhoneTemplate.png";
+    var img = "url(../img/iPhoneTemplate.png)";
     console.log("onclick works");
     socket.emit("newTemplate", img);
 };
 
 tabletButton.onclick = function () {
-    var img = "../img/iPadTemplate.png";
+    var img = "url(../img/iPadTemplate.png)";
     console.log("onclick works");
     socket.emit("newTemplate", img);
 };
+
+desktopButton.onclick = function () {
+    var img = "url(../img/desktopTemplate.png)";
+    console.log("onclick works");
+    socket.emit("newTemplate", img);
+};
+
 //login tings
 
     var loginContainer = document.getElementById("loginContainer");
@@ -148,12 +164,6 @@ tabletButton.onclick = function () {
         $(loginContainer).hide()
 
     };
-
-desktopButton.onclick = function () {
-    var img = "../img/desktopTemplate.png";
-    console.log("onclick works");
-    socket.emit("newTemplate", img);
-};
 
     var username = "";
     var connected = false;
