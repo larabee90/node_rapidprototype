@@ -4,6 +4,19 @@
 
 ///////////////////////////////////////////////////
 $( document ).ready(function() {
+    var colours = ["red", "green", "blue"];
+    var username = "";
+    var userColour =  "";
+    var connected = false;
+    var typing = false;
+    var lastTypingTime;
+
+    var loginContainer = document.getElementById("loginContainer");
+    var enterUsername = document.getElementById("enterUsername");
+    var usernameInput = document.getElementById("usernameInput");
+    var usernameSubmit = document.getElementById("usernameSubmit");
+
+
     var mouse = {
         click: false,
         move: false,
@@ -34,12 +47,14 @@ $( document ).ready(function() {
     };
 
     // draw line received from server
-    socket.on('draw_line', function (data) {
+    socket.on('draw_line', function (data, colour) {
         var line = data.line;
         context.beginPath();
         context.moveTo(line[0].x * width - canvas.offsetLeft, line[0].y * height - canvas.offsetTop);
         context.lineTo(line[1].x * width - canvas.offsetLeft, line[1].y * height - canvas.offsetTop);
+        context.strokeStyle = colour;
         context.stroke();
+        console.log(context.strokeStyle);
     });
 
     // main loop, running every 25ms
@@ -47,7 +62,7 @@ $( document ).ready(function() {
         // check if the user is drawing
         if (mouse.click && mouse.move && mouse.pos_prev) {
             // send line to to the server
-            socket.emit('draw_line', { line: [ mouse.pos, mouse.pos_prev ] });
+            socket.emit('draw_line', { line: [ mouse.pos, mouse.pos_prev ] }, userColour);
             mouse.move = false;
         }
         mouse.pos_prev = {x: mouse.pos.x, y: mouse.pos.y};
@@ -121,17 +136,6 @@ socket.on("connect", function() {
     };
 
 //login tings
-    var colours = ["red", "green", "blue"];
-    var username = "";
-    var userColour =  "";
-    var connected = false;
-    var typing = false;
-    var lastTypingTime;
-
-    var loginContainer = document.getElementById("loginContainer");
-    var enterUsername = document.getElementById("enterUsername");
-    var usernameInput = document.getElementById("usernameInput");
-    var usernameSubmit = document.getElementById("usernameSubmit");
 
     socket.on("newUser", function (user, colour) {
         console.log("new user added: " + user);
