@@ -133,33 +133,22 @@ function printMessage(message) {
 
 //button tings
 
-var btnClicked;
 var mobileButton = document.getElementById("mobileButton");
 var tabletButton = document.getElementById("tabletButton");
 var desktopButton = document.getElementById("desktopButton");
 
 function drawTemplate(template) {
-
+    context.clearRect(0,0,canvas.width, canvas.height);
     var img = document.createElement("img");
 
     img.onload = function () {
         imgWidth = img.width * 0.6;
         imgHeight = img.height * 0.6;
-        // imgWidth = 208;
-        // imgHeight = 430;
         centerHor = canvas.width / 2 - imgWidth / 2;
         centerVert = canvas.height / 2 - imgHeight / 2;
         context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
     };
     img.src = template;
-    // if (btnClicked === 'mobile') {
-    //     img.src = "../img/iPhoneTemplate.png";
-    // } else if (btnClicked === 'tablet') {
-    //     img.src = "../img/iPadTemplate.png";
-    // } else if (btnClicked === 'desktop') {
-    //     img.src = "../img/desktopTemplate.png";
-    // }
-
 }
 
 socket.on ("drawTemplate", function(template) {
@@ -167,25 +156,19 @@ socket.on ("drawTemplate", function(template) {
 });
 
 mobileButton.onclick = function () {
-    var img = "../img/iPhoneTemplate.png"
+    var img = "../img/iPhoneTemplate.png";
     console.log("onclick works");
-    context.clearRect(0,0,canvas.width, canvas.height);
-;
     socket.emit("newTemplate", img);
 };
 
 tabletButton.onclick = function () {
     var img = "../img/iPadTemplate.png";
     console.log("onclick works");
-    context.clearRect(0,0,canvas.width, canvas.height);
-
     socket.emit("newTemplate", img);
 };
 
 desktopButton.onclick = function () {
     var img = "../img/desktopTemplate.png";
     console.log("onclick works");
-    context.clearRect(0,0,canvas.width, canvas.height);
-
     socket.emit("newTemplate", img);
 };
