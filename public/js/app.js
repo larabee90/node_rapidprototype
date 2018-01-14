@@ -137,8 +137,8 @@ function drawTemplate(template) {
     // img.src = template;
 };
 
-socket.on("drawTemplate", function () {
-        drawTemplate();
+socket.on("drawTemplate", function (template) {
+        drawTemplate(template);
     });
 
 mobileButton.onclick = function () {
