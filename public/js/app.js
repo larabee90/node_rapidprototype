@@ -121,29 +121,33 @@ socket.on("connect", function() {
     };
 
 //login tings
+    var colours = ["red", "green", "blue"];
+    var username = "";
+    var userColour =  "";
+    var connected = false;
+    var typing = false;
+    var lastTypingTime;
 
     var loginContainer = document.getElementById("loginContainer");
     var enterUsername = document.getElementById("enterUsername");
     var usernameInput = document.getElementById("usernameInput");
     var usernameSubmit = document.getElementById("usernameSubmit");
 
-    socket.on("newUser", function (user) {
+    socket.on("newUser", function (user, colour) {
         console.log("new user added: " + user);
+        console.log(user + " colour is " + colour);
+        colours.shift();
 
     });
 
     usernameSubmit.onclick = function () {
         username = usernameInput.value
-        socket.emit("addUsername", username);
+        userColour = colours[0];
+        socket.emit("addUsername", username, userColour);
         $(loginContainer).hide()
 
     };
 
-
-    var username = "";
-    var connected = false;
-    var typing = false;
-    var lastTypingTime;
 //var $currentInput = $usernameInput.focus();
 
 });

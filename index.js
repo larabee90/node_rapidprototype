@@ -42,8 +42,8 @@ io.on('connection', function (socket) {
         io.emit('draw_line', { line: data.line });
     });
 
-    socket.on("chat", function(message, user) {
-        io.emit("message", message, user);
+    socket.on("chat", function(message, user, colour) {
+        io.emit("message", message, user, colour);
         console.log(message);
     });
 
@@ -51,10 +51,10 @@ io.on('connection', function (socket) {
         io.emit("drawTemplate", img);
     });
 
-    socket.on("addUsername", function(username) {
-        console.log("new user added: " + username);
+    socket.on("addUsername", function(username, colour) {
+        console.log("new user added: " + username + ", their colour is " + colour);
         users.push(username);
-        io.emit("newUser", username);
+        io.emit("newUser", username, colour);
 
     });
 
