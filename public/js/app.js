@@ -138,7 +138,7 @@ var mobileButton = document.getElementById("mobileButton");
 var tabletButton = document.getElementById("tabletButton");
 var desktopButton = document.getElementById("desktopButton");
 
-function drawTemplate() {
+function drawTemplate(template) {
 
     var img = document.createElement("img");
 
@@ -151,38 +151,41 @@ function drawTemplate() {
         centerVert = canvas.height / 2 - imgHeight / 2;
         context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
     };
-
-    if (btnClicked === 'mobile') {
-        img.src = "../img/iPhoneTemplate.png";
-    } else if (btnClicked === 'tablet') {
-        img.src = "../img/iPadTemplate.png";
-    } else if (btnClicked === 'desktop') {
-        img.src = "../img/desktopTemplate.png";
-    }
+    img.src = template;
+    // if (btnClicked === 'mobile') {
+    //     img.src = "../img/iPhoneTemplate.png";
+    // } else if (btnClicked === 'tablet') {
+    //     img.src = "../img/iPadTemplate.png";
+    // } else if (btnClicked === 'desktop') {
+    //     img.src = "../img/desktopTemplate.png";
+    // }
 
 }
 
-socket.on ("drawTemplate", function() {
-    drawTemplate();
+socket.on ("drawTemplate", function(template) {
+    drawTemplate(template);
 });
 
 mobileButton.onclick = function () {
+    var img = "../img/iPhoneTemplate.png"
     console.log("onclick works");
     context.clearRect(0,0,canvas.width, canvas.height);
-    btnClicked = 'mobile';
-    socket.emit("mobile");
+;
+    socket.emit("newTemplate", img);
 };
 
 tabletButton.onclick = function () {
+    var img = "../img/iPadTemplate.png";
     console.log("onclick works");
     context.clearRect(0,0,canvas.width, canvas.height);
-    btnClicked = 'tablet';
-    socket.emit("tablet");
+
+    socket.emit("newTemplate", img);
 };
 
 desktopButton.onclick = function () {
+    var img = "../img/desktopTemplate.png";
     console.log("onclick works");
     context.clearRect(0,0,canvas.width, canvas.height);
-    btnClicked = 'desktop';
-    socket.emit("desktop");
+
+    socket.emit("newTemplate", img);
 };
