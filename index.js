@@ -42,13 +42,13 @@ io.on('connection', function (socket) {
 
     socket.on("chat", function(message) {
         io.emit("message", message);
-
         console.log(message);
     });
 
     socket.on("mobile", function(drawPhone) {
-        
+
         console.log("mobile button working");
+        io.emit("drawTemplate");
 
 
 

@@ -21,10 +21,22 @@ body {
   background-attachment: fixed; }
 
 .container {
-  padding: 2em; }
+  padding: 2em;
+    display: grid;
+  grid-template-rows: [first] 45% [space] auto [right] 45% [end] ;
+  
+    
+}
+
 
 h1 {
-  font-family: "Work Sans", sans-serif; }
+    font-family: "Work Sans", sans-serif;
+    grid-column-start: 1;
+    grid-column-end: end;
+
+}
+
+
 
 .color {
   display: inline-block;
@@ -48,7 +60,7 @@ h1 {
 
 .toolbar {
   height: 70px;
-  width: 50%;
+  width: 100%;
   background-color: #4a494a;
   padding-top: 0.12em;
   padding-left: 1em; }
@@ -67,10 +79,13 @@ h1 {
         display: inline-block;
         margin-right: 1em; }
 
-.canvasContainer, .messages {
-  width: 50%;
-  height: 60%;
+.canvasContainer {
+    height: 60%;
+    grid-column-start: 1;
+    grid-column-end: 2;
+
 }
+
 
 #paintCanvas {
   background: white;
@@ -79,6 +94,9 @@ h1 {
 
 .messages {
     background: white;
+    grid-column-start: 3;
+    grid-column-end: end;
+
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -63,9 +63,6 @@ document.addEventListener("DOMContentLoaded", function() {
         context.lineTo(line[1].x * width - canvas.offsetLeft, line[1].y * height - canvas.offsetTop);
         context.stroke();
     });
-socket.on("message", function(message) {
-    printMessage(message);
-});
 
     // function getMousePos(canvas, evt) {
     //     var rect = canvas.getBoundingClientRect(), // abs. size of element
@@ -108,6 +105,11 @@ socket.on("connect", function() {
     setTitle("Connected to Cyber Chat");
 });
 
+socket.on("message", function(message) {
+    printMessage(message);
+});
+
+
 document.forms[0].onsubmit = function () {
     var input = document.getElementById("message");
     //printMessage(input.value);
@@ -127,10 +129,7 @@ function printMessage(message) {
 
 //button tings
 
-document.getElementById("mobileButton").onclick = function () {
-    console.log("onclick works");
-    socket.emit("mobile");
-
+function drawTemplate() {
 
     var canvas  = document.getElementById('paintCanvas');
     var context = canvas.getContext('2d');
@@ -144,6 +143,17 @@ document.getElementById("mobileButton").onclick = function () {
         context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
     };
     img.src = "../img/iPhoneTemplate.png";
+
+}
+
+socket.on ("drawTemplate", function() {
+    drawTemplate();
+});
+
+document.getElementById("mobileButton").onclick = function () {
+    console.log("onclick works");
+    socket.emit("mobile");
+
 
 
 
