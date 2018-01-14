@@ -36,7 +36,7 @@ $( document ).ready(function() {
     canvas.width = width;
     canvas.height = height;
 
-    var mode = 'pen';
+    var tool = 'pen';
 
     // register mouse event handlers
     canvas.onmousedown = function(e){ mouse.click = true; };
@@ -46,26 +46,20 @@ $( document ).ready(function() {
         mouse.pos.x = e.clientX / width;
         mouse.pos.y = e.clientY / height;
         mouse.move = true;
-        if (mouse.click === true) {
-            if (mode === 'pen'){
-                context.lineWidth = 5;
-                context.lineCap = 'round';
-                context.globalCompositeOperation="source-over";
-            } else {
-                context.lineWidth = 8;
-                context.lineCap = 'round';
-                context.globalCompositeOperation="destination-out";
-                context.fill();
-            }
-        }
+        // if (mouse.click === true) {
+        //     if (mode === 'eraser'){
+        //         context.strokeStyle = '#ffffff';
+        //         context.stroke();
+        //     }
+        // }
     };
 
     $('#penMode').click(function(){
-        mode = 'pen';
+        tool = 'pen';
     });
 
     $('#eraserMode').click(function(){
-        mode = 'eraser';
+       tool = 'eraser';
     });
 
     // draw line received from server
@@ -74,7 +68,14 @@ $( document ).ready(function() {
         context.beginPath();
         context.moveTo(line[0].x * width - canvas.offsetLeft, line[0].y * height - canvas.offsetTop);
         context.lineTo(line[1].x * width - canvas.offsetLeft, line[1].y * height - canvas.offsetTop);
-        context.strokeStyle = colour;
+        context.lineWidth = 5;
+        context.lineCap = 'round';
+        if (tool === 'eraser') {
+            colour = '#ffffff';
+            context.strokeStyle = colour;
+        } else {
+            context.strokeStyle = colour;
+        }
         context.stroke();
         console.log(context.strokeStyle);
     });
