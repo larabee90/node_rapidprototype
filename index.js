@@ -6,12 +6,10 @@
  * Created by lauradouglas on 2017-12-09.
  */
 
-
 var express = require('express');
 var http = require('http');
 var socketio = require('socket.io');
 var app = express();
-
 
 var server =  http.createServer(app).listen(3000);
 var io = socketio(server);
@@ -27,7 +25,6 @@ var linesDrawn = [];
 var users = [];
 
 var coloursAvailable = ["#FA4C61", "#52A2FF", "#50E3C2", "#F8E71C"];
-
 
 // event-handler for new incoming connections
 io.on('connection', function (socket) {
@@ -65,13 +62,12 @@ io.on('connection', function (socket) {
 
             'name': username,
             'colour': coloursAvailable[0]
-
         };
+
         users.push(user);
         console.log(users);
 
         for(i = 0; i < users.length; i++) {
-
             console.log("loop works");
             socket.emit("newUser", users[i].name , users[i].colour);
 

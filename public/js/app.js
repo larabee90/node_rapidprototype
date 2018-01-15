@@ -16,9 +16,6 @@ $( document ).ready(function() {
     var usernameInput = document.getElementById("usernameInput");
     var usernameSubmit = document.getElementById("usernameSubmit");
 
-    // var cw = $(enterUsername).width();
-    // $(enterUsername).css({'height':cw+'px'});
-
     var mouse = {
         click: false,
         move: false,
@@ -28,8 +25,6 @@ $( document ).ready(function() {
     // get canvas element and create context
     var canvas = document.getElementById('paintCanvas');
     var context = canvas.getContext('2d');
-    // var width   = window.innerWidth * 0.60;
-    // var height  = window.innerHeight * 0.50;
     var width = 600;
     var height = 500;
     var socket = io.connect();
@@ -98,15 +93,15 @@ $( document ).ready(function() {
 
 //chat tings
 
-var socket = io("http://localhost:3000");
+    var socket = io("http://localhost:3000");
 
-socket.on("disconnect", function() {
-    //setTitle("Disconnected");
-});
+    socket.on("disconnect", function() {
 
-socket.on("connect", function() {
-    //setTitle("Connected to Cyber Chat");
-});
+    });
+
+    socket.on("connect", function() {
+
+    });
 
     socket.on("message", function (message, user, colour) {
         printMessage(message, user, colour);
@@ -135,54 +130,41 @@ socket.on("connect", function() {
 
 //button tings
 
+    var canvas = document.getElementById('paintCanvas');
+    var context = canvas.getContext('2d');
+    var img = document.createElement("img");
 
-var canvas = document.getElementById('paintCanvas');
-var context = canvas.getContext('2d');
-var img = document.createElement("img");
+    function drawTemplate(template) {
+        templateDiv = document.getElementById('templateImage');
+        backgroundImg = template;
 
-function drawTemplate(template) {
-    // document.getElementById('templateImage').appendChild(img);
-    templateDiv = document.getElementById('templateImage');
-    backgroundImg = template;
+        templateDiv.style.backgroundImage = backgroundImg;
+        templateDiv.style.backgroundRepeat = 'no-repeat';
+        templateDiv.style.backgroundPosition = 'center';
+        console.log('bg');
+    };
 
-    templateDiv.style.backgroundImage = backgroundImg;
-    templateDiv.style.backgroundRepeat = 'no-repeat';
-    templateDiv.style.backgroundPosition = 'center';
-    console.log('bg');
-    // context.clearRect(0,0,canvas.width, canvas.height);
-    // var img = document.createElement("img");
-    //
-    // img.onload = function () {
-    //     imgWidth = img.width * 0.6;
-    //     imgHeight = img.height * 0.6;
-    //     centerHor = canvas.width / 2 - imgWidth / 2;
-    //     centerVert = canvas.height / 2 - imgHeight / 2;
-    //     context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
-    // };
-    // img.src = template;
-};
+    socket.on("drawTemplate", function (template) {
+            drawTemplate(template);
+        });
 
-socket.on("drawTemplate", function (template) {
-        drawTemplate(template);
-    });
+    mobileButton.onclick = function () {
+        var img = "url(../img/iPhoneTemplate.png)";
+        console.log("onclick works");
+        socket.emit("newTemplate", img);
+    };
 
-mobileButton.onclick = function () {
-    var img = "url(../img/iPhoneTemplate.png)";
-    console.log("onclick works");
-    socket.emit("newTemplate", img);
-};
+    tabletButton.onclick = function () {
+        var img = "url(../img/iPadTemplate.png)";
+        console.log("onclick works");
+        socket.emit("newTemplate", img);
+    };
 
-tabletButton.onclick = function () {
-    var img = "url(../img/iPadTemplate.png)";
-    console.log("onclick works");
-    socket.emit("newTemplate", img);
-};
-
-desktopButton.onclick = function () {
-    var img = "url(../img/desktopTemplate.png)";
-    console.log("onclick works");
-    socket.emit("newTemplate", img);
-};
+    desktopButton.onclick = function () {
+        var img = "url(../img/desktopTemplate.png)";
+        console.log("onclick works");
+        socket.emit("newTemplate", img);
+    };
 
 //login tings
 
@@ -196,8 +178,6 @@ desktopButton.onclick = function () {
             document.getElementById("activeUsers").appendChild(newUser);
             colours.shift();
         }
-
-
     });
 
 
@@ -206,15 +186,11 @@ desktopButton.onclick = function () {
         socket.emit("addUsername", username);
         $(loginContainer).hide();
         isLoggedIn = true;
-
     };
 
     socket.on("assignColour", function(colour){
         userColour = colour;
         console.log(colour);
-    })
-
-
-//var $currentInput = $usernameInput.focus();
+    });
 
 });
