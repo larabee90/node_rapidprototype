@@ -20,6 +20,8 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
 
+var messages=[];
+
 var linesDrawn = [];
 
 var users = [];
@@ -48,9 +50,13 @@ io.on('connection', function (socket) {
     });
 
     socket.on("chat", function(message, user, colour) {
-        console.log(colour);
+        if(messages.length === 0){
+
+            io.emit("deleteWelcomeMessage");
+        }
         io.emit("message", message, user, colour);
-        console.log(message);
+        messages.push(message);
+
     });
 
     socket.on("newTemplate", function(img){
@@ -72,6 +78,12 @@ io.on('connection', function (socket) {
             socket.emit("newUser", users[i].name , users[i].colour);
 
         }
+
+        if(messages.length !== 0){
+
+            socket.emit("deleteWelcomeMessage");
+        };
+
         socket.emit("assignColour", user.colour);
 
         socket.broadcast.emit("newUser", username, user.colour);

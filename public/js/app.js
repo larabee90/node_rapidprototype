@@ -7,9 +7,9 @@ $( document ).ready(function() {
     var colours = ["red", "green", "blue"];
     var username = "";
     var userColour =  "";
-    var isLoggedIn = false;
     var typing = false;
     var lastTypingTime;
+
 
     var loginContainer = document.getElementById("loginContainer");
     var enterUsername = document.getElementById("enterUsername");
@@ -103,12 +103,17 @@ var socket = io("http://localhost:3000");
 
     });
 
+    socket.on("deleteWelcomeMessage", function(){
+        console.log("ran");
+        $("#messages").empty();
+    });
+
     socket.on("message", function (message, user, colour) {
         printMessage(message, user, colour);
     });
 
 
-    document.forms[0].onsubmit = function () {
+    document.forms[1].onsubmit = function () {
         var input = document.getElementById("message");
         //printMessage(input.value);
         socket.emit("chat", input.value, username, userColour);
@@ -182,11 +187,12 @@ desktopButton.onclick = function () {
     });
 
 
-    usernameSubmit.onclick = function () {
+    document.getElementById("loginForm").onsubmit = function () {
         username = usernameInput.value
         socket.emit("addUsername", username);
         $(loginContainer).hide();
-        isLoggedIn = true;
+
+
     };
 
     socket.on("assignColour", function(colour){
