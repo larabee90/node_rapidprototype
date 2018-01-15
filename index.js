@@ -30,7 +30,8 @@ var coloursAvailable = ["#FA4C61", "#52A2FF", "#50E3C2", "#F8E71C"];
 
 // event-handler for new incoming connections
 io.on('connection', function (socket) {
-
+    
+    //// NEW CANVAS
     // first send the history to the new client
     for (var i in linesDrawn) {
         socket.emit('draw_line', { line: linesDrawn[i].line }, linesDrawn[i].colour, linesDrawn[i].tool );
@@ -48,6 +49,8 @@ io.on('connection', function (socket) {
         // send line to all clients
         io.emit('draw_line', { line: data.line }, colour, tool);
     });
+
+    ///// NEW MESSAGE SENT
 
     socket.on("chat", function(message, user, colour) {
 
@@ -73,6 +76,8 @@ io.on('connection', function (socket) {
     socket.on("newTemplate", function(img){
         io.emit("drawTemplate", img);
     });
+
+    ///// NEW USER ADDED
 
     socket.on("addUsername", function(username) {
 
