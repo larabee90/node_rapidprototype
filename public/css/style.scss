@@ -48,7 +48,7 @@ h1 {
 
 .toolbar {
   height: 70px;
-  width: 50%;
+  width: 100%;
   background-color: $grey;
   padding-top: 0.12em;
   padding-left: 1em;
@@ -60,20 +60,44 @@ h1 {
     font-family: $work-sans;
     font-weight: $font-light;
   }
-  & ul {
-    list-style-type: none;
-    & li {
-      & button {
-        display: inline-block;
-        margin-right: 1em;
-      }
-    }
-  }
   &.deviceButtons {
     float: left;
+    width: 90%;
   }
   &.toolButtons {
     float: right;
+  }
+  & ul {
+    list-style-type: none;
+    & li {
+      float: left;
+      & button {
+        display: inline-block;
+        margin-right: 1em;
+        height: 35px;
+        width: 50px;
+      }
+      & #mobileButton {
+        background: url("../img/iPhoneSmall.png") no-repeat center center;
+        border: none;
+      }
+      & #tabletButton {
+        background: url("../img/iPadSmall.png") no-repeat center center;
+        border: none;
+      }
+      & #desktopButton {
+        background: url("../img/desktopSmall.png") no-repeat center center;
+        border: none;
+      }
+      & #penMode {
+        background: url("../img/penIcon.png") no-repeat center center;
+        border: none;
+      }
+      & #eraserMode {
+        background: url("../img/eraserIcon.png") no-repeat center center;
+        border: none;
+      }
+    }
   }
 }
 
