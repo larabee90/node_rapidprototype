@@ -20,16 +20,14 @@
 
         <div class="container">
             <h1 id="title">Node Rapid Prototype</h1>
-            <!--<div class="colors">-->
-                <!--<div class="color black"></div>-->
-                <!--<div class="color red"></div>-->
-                <!--<div class="color green"></div>-->
-                <!--<div class="color blue"></div>-->
-                <!--<div class="color yellow"></div>-->
-            <!--</div><br><br><br>-->
-
             <div id = "activeUsers">
 
+            </div>
+            <div class="messages">
+                <form id="messageForm" action="javascript:void(0)">
+                    <label for="message">&gt;</label>
+                    <input type="text" id="message" required autofocus />
+                </form>
             </div>
 
 
@@ -39,16 +37,16 @@
                     <div class="deviceButtons">
                         <p>DEVICE:</p>
                         <ul>
-                            <li><button id = "mobileButton">iPhone</button></li>
-                            <li><button id = "tabletButton">iPad</button></li>
-                            <li><button id = "desktopButton">Desktop</button></li>
+                            <li><button id = "mobileButton"></button></li>
+                            <li><button id = "tabletButton"></button></li>
+                            <li><button id = "desktopButton"></button></li>
                         </ul>
                     </div>
                     <div class="toolButtons">
                         <p>TOOLS:</p>
                         <ul>
-                            <li><button id = "penMode">Pen</button></li>
-                            <li><button id = "eraserMode">Eraser</button></li>
+                            <li><button id = "penMode"></button></li>
+                            <li><button id = "eraserMode"></button></li>
                         </ul>
                     </div>
                 </div>
@@ -60,13 +58,6 @@
 
             </div>
 
-
-            <div class="messages">
-                <form id="messageForm" action="javascript:void(0)">
-                    <label for="message">&gt;</label>
-                    <input type="text" id="message" required autofocus />
-                </form>
-            </div>
 
         </div>
         <script src="socket.io/socket.io.js"></script>

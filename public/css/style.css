@@ -33,7 +33,7 @@ h1 {
 
 .toolbar {
   height: 70px;
-  width: 50%;
+  width: 100%;
   background-color: #4a494a;
   padding-top: 0.12em;
   padding-left: 1em; }
@@ -44,20 +44,41 @@ h1 {
     color: #fff;
     font-family: "Work Sans", sans-serif;
     font-weight: 300; }
-  .toolbar ul {
-    list-style-type: none; }
-    .toolbar ul li button {
-      display: inline-block;
-      margin-right: 1em; }
   .toolbar.deviceButtons {
-    float: left; }
+    float: left;
+    width: 90%; }
   .toolbar.toolButtons {
     float: right; }
+  .toolbar ul {
+    list-style-type: none; }
+    .toolbar ul li {
+      float: left; }
+      .toolbar ul li button {
+        display: inline-block;
+        margin-right: 1em;
+        height: 35px;
+        width: 50px; }
+      .toolbar ul li #mobileButton {
+        background: url("../img/iPhoneSmall.png") no-repeat center center;
+        border: none; }
+      .toolbar ul li #tabletButton {
+        background: url("../img/iPadSmall.png") no-repeat center center;
+        border: none; }
+      .toolbar ul li #desktopButton {
+        background: url("../img/desktopSmall.png") no-repeat center center;
+        border: none; }
+      .toolbar ul li #penMode {
+        background: url("../img/penIcon.png") no-repeat center center;
+        border: none; }
+      .toolbar ul li #eraserMode {
+        background: url("../img/eraserIcon.png") no-repeat center center;
+        border: none; }
 
 .canvasContainer {
   width: 50%;
   height: 80%;
-  position: relative; }
+  position: relative;
+  margin-right: 0; }
 
 #templateImage {
   z-index: -1;
@@ -90,9 +111,22 @@ h1 {
 
 #activeUsers {
   float: right; }
+  #activeUsers:before {
+    content: "USERS";
+    font-family: "Work Sans", sans-serif;
+    color: #4a494a;
+    font-weight: 400;
+    margin-right: 0.5em;
+    margin-bottom: 0.5em; }
 
 .activeUser {
-  width: 20px;
-  height: 20px; }
+  display: inline-block;
+  margin-right: 0.5em;
+  width: 35px;
+  height: 35px;
+  border: 2px solid #fff;
+  border-radius: 50%; }
+  .activeUser:last-of-type {
+    margin-right: 0; }
 
 /*# sourceMappingURL=style.css.map */
