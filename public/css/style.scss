@@ -37,9 +37,24 @@ body, #loginContainer  {
 }
 
 .container {
+  width:100%;
+  height: 100%;
+  position:absolute;
   padding: 2em;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 4em 4em auto 6em;
+  grid-gap: 1em;
 }
 
+#appName {
+  grid-column: 1 / end;
+  grid-row: 1 / 2;
+}
+#title {
+  grid-column: 1 / 5;
+  grid-row: 2 / 3;
+}
 h1 {
   font-family: $work-sans;
 }
@@ -106,11 +121,13 @@ h1 {
 }
 
 .canvasContainer {
-  width: 50%;
-  height: 80%;
   position: relative;
-  margin-right: 0;
+
+  grid-column: 1 / 8;
+  grid-row: 3 /4;
 }
+
+
 
 #templateImage {
   z-index: -1;
@@ -128,16 +145,9 @@ h1 {
   height: 100%;
 }
 
-.redUser {
-  color: red;
-}
-
-.blueUser {
-  color: blue;
-}
-
-.greenUser {
-  color:Purple;
+.messages {
+  grid-column: 8 / end;
+  grid-row: 3 / 4;
 }
 
 #loginContainer {
@@ -215,7 +225,7 @@ h1 {
 
 
 #activeUsers {
-  float:right;
+  grid-column: end / auto;
   &:before {
     content: "USERS";
     font-family: $work-sans;
