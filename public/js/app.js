@@ -16,9 +16,6 @@ $( document ).ready(function() {
     var usernameInput = document.getElementById("usernameInput");
     var usernameSubmit = document.getElementById("usernameSubmit");
 
-    // var cw = $(enterUsername).width();
-    // $(enterUsername).css({'height':cw+'px'});
-
     var mouse = {
         click: false,
         move: false,
@@ -28,8 +25,6 @@ $( document ).ready(function() {
     // get canvas element and create context
     var canvas = document.getElementById('paintCanvas');
     var context = canvas.getContext('2d');
-    var width   = window.innerWidth * 0.60;
-    var height  = window.innerHeight * 0.50;
     var width = 600;
     var height = 500;
     var socket = io.connect();
@@ -67,12 +62,13 @@ $( document ).ready(function() {
         var rect = canvas.getBoundingClientRect();
         context.moveTo(line[0].x * width - rect.left, line[0].y * height - rect.top);
         context.lineTo(line[1].x * width - rect.left, line[1].y * height - rect.top);
-        context.lineWidth = 5;
         context.lineCap = 'round';
         if (tool === 'eraser') {
             colour = "#ffffff";
+            context.lineWidth = 15;
             context.strokeStyle = colour;
         } else {
+            context.lineWidth = 5;
             context.strokeStyle = colour;
         }
         context.stroke();
@@ -99,13 +95,13 @@ $( document ).ready(function() {
 
 var socket = io("http://localhost:3000");
 
-socket.on("disconnect", function() {
-    //setTitle("Disconnected");
-});
+    socket.on("disconnect", function() {
 
-socket.on("connect", function() {
-    //setTitle("Connected to Cyber Chat");
-});
+    });
+
+    socket.on("connect", function() {
+
+    });
 
     socket.on("message", function (message, user, colour) {
         printMessage(message, user, colour);
@@ -139,27 +135,15 @@ var canvas = document.getElementById('paintCanvas');
 var context = canvas.getContext('2d');
 var img = document.createElement("img");
 
-function drawTemplate(template) {
-    // document.getElementById('templateImage').appendChild(img);
-    templateDiv = document.getElementById('templateImage');
-    backgroundImg = template;
+    function drawTemplate(template) {
+        templateDiv = document.getElementById('templateImage');
+        backgroundImg = template;
 
-    templateDiv.style.backgroundImage = backgroundImg;
-    templateDiv.style.backgroundRepeat = 'no-repeat';
-    templateDiv.style.backgroundPosition = 'center';
-    console.log('bg');
-    // context.clearRect(0,0,canvas.width, canvas.height);
-    // var img = document.createElement("img");
-    //
-    // img.onload = function () {
-    //     imgWidth = img.width * 0.6;
-    //     imgHeight = img.height * 0.6;
-    //     centerHor = canvas.width / 2 - imgWidth / 2;
-    //     centerVert = canvas.height / 2 - imgHeight / 2;
-    //     context.drawImage(img, centerHor, centerVert, imgWidth, imgHeight);
-    // };
-    // img.src = template;
-};
+        templateDiv.style.backgroundImage = backgroundImg;
+        templateDiv.style.backgroundRepeat = 'no-repeat';
+        templateDiv.style.backgroundPosition = 'center';
+        console.log('bg');
+    };
 
 socket.on("drawTemplate", function (template) {
         drawTemplate(template);
@@ -195,8 +179,6 @@ desktopButton.onclick = function () {
             document.getElementById("activeUsers").appendChild(newUser);
             colours.shift();
         }
-
-
     });
 
 
@@ -205,15 +187,11 @@ desktopButton.onclick = function () {
         socket.emit("addUsername", username);
         $(loginContainer).hide();
         isLoggedIn = true;
-
     };
 
     socket.on("assignColour", function(colour){
         userColour = colour;
         console.log(colour);
-    })
-
-
-//var $currentInput = $usernameInput.focus();
+    });
 
 });
