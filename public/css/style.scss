@@ -156,6 +156,9 @@ h1 {
   grid-column-start: 5;
   grid-column-end: 9;
   grid-row: 2 / 3;
+    h1{
+      font-weight: $font-med;
+    }
 
 }
 
@@ -166,10 +169,10 @@ h1 {
         text-align: center;
       }
       h1 {
-        font-size: 1em;
+        font-size: 3em;
       }
       h3 {
-      font-size: 0.5em;
+      font-size: 1em;
       }
   }
 
