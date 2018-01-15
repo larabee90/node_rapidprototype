@@ -50,11 +50,17 @@ io.on('connection', function (socket) {
     });
 
     socket.on("chat", function(message, user, colour) {
+
+        //delete welcome message if this is the first message sent to chat
         if(messages.length === 0){
 
             io.emit("deleteWelcomeMessage");
         }
+
+        //emit message to all users
         io.emit("message", message, user, colour);
+
+        //add new message to messages array
         var newMessage = {
             'username': user,
             'colour': colour,
@@ -69,6 +75,8 @@ io.on('connection', function (socket) {
     });
 
     socket.on("addUsername", function(username) {
+
+        //add new users to the list of actives
         var user = {
 
             'name': username,
@@ -76,32 +84,35 @@ io.on('connection', function (socket) {
         };
 
         users.push(user);
-        console.log(users);
 
+
+        //get all the active users indicated at top right for new user
         for(i = 0; i < users.length; i++) {
             console.log("loop works");
             console.log(users.length);
             socket.emit("newUser", users[i].name , users[i].colour);
 
-
         }
-
+        //delete instructions in messages div if there have already been messages posted
         if(messages.length !== 0){
 
             socket.emit("deleteWelcomeMessage");
         };
 
+
+        //get all the messages that have been sent to the chat before the new user signed in
         for(i=0; i<messages.length; i++){
-            console.log("message loop ran");
-            console.log (messages[i].message,  messages[i].username, messages[i].colour);
+
             socket.emit("message", messages[i].message, messages[i].username, messages[i].colour);
         }
 
-
-
+        //assign new user an available colour
         socket.emit("assignColour", user.colour);
 
+        //add new users to active user's legend (top right) in previously signed in users interface
         socket.broadcast.emit("newUser", username, user.colour);
+
+        //delete colour assigned from array
         coloursAvailable.shift();
 
     });

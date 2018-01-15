@@ -110,7 +110,13 @@ var socket = io("http://localhost:3000");
     });
 
     socket.on("message", function (message, user, colour) {
-        printMessage(message, user, colour);
+        if (isLoggedIn) {
+
+            printMessage(message, user, colour);
+        } else {
+          console.log("User has not yet logged in");
+        };
+
     });
 
 
@@ -128,7 +134,7 @@ var socket = io("http://localhost:3000");
 
     function printMessage(message, user, colour) {
         var p = document.createElement("p");
-
+        console.log(message, user, colour);
         p.innerHTML = "<span style = 'color:" + colour + "'>" + user + ": </span>" + message;
 
         $("#messages")[0].appendChild(p);
