@@ -104,11 +104,11 @@ $( document ).ready(function() {
 var socket = io("http://localhost:3000");
 
 socket.on("disconnect", function() {
-    setTitle("Disconnected");
+    //setTitle("Disconnected");
 });
 
 socket.on("connect", function() {
-    setTitle("Connected to Cyber Chat");
+    //setTitle("Connected to Cyber Chat");
 });
 
     socket.on("message", function (message, user, colour) {
