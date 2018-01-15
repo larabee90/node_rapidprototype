@@ -22,7 +22,7 @@ $( document ).ready(function() {
     var mouse = {
         click: false,
         move: false,
-        pos: {x: 0, y: 0},
+        pos: {x: 32, y: 132},
         pos_prev: false
     };
     // get canvas element and create context
@@ -40,6 +40,7 @@ $( document ).ready(function() {
 
     var tool = 'pen';
 
+
     // register mouse event handlers
     canvas.onmousedown = function(e){ mouse.click = true; };
     canvas.onmouseup = function(e){ mouse.click = false; };
@@ -48,12 +49,7 @@ $( document ).ready(function() {
         mouse.pos.x = e.clientX / width;
         mouse.pos.y = e.clientY / height;
         mouse.move = true;
-        // if (mouse.click === true) {
-        //     if (mode === 'eraser'){
-        //         context.strokeStyle = '#ffffff';
-        //         context.stroke();
-        //     }
-        // }
+
     };
 
     $('#penMode').click(function(){
@@ -68,8 +64,9 @@ $( document ).ready(function() {
     socket.on('draw_line', function (data, colour, tool) {
         var line = data.line;
         context.beginPath();
-        context.moveTo(line[0].x * width - canvas.offsetLeft, line[0].y * height - canvas.offsetTop);
-        context.lineTo(line[1].x * width - canvas.offsetLeft, line[1].y * height - canvas.offsetTop);
+        var rect = canvas.getBoundingClientRect();
+        context.moveTo(line[0].x * width - rect.left, line[0].y * height - rect.top);
+        context.lineTo(line[1].x * width - rect.left, line[1].y * height - rect.top);
         context.lineWidth = 5;
         context.lineCap = 'round';
         if (tool === 'eraser') {
