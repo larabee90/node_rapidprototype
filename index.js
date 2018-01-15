@@ -83,7 +83,6 @@ io.on('connection', function (socket) {
 
     });
 
-    //socket.emit("message", "Welcome to Cyber Chat");
 });
 
 
