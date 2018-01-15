@@ -67,12 +67,13 @@ $( document ).ready(function() {
         var rect = canvas.getBoundingClientRect();
         context.moveTo(line[0].x * width - rect.left, line[0].y * height - rect.top);
         context.lineTo(line[1].x * width - rect.left, line[1].y * height - rect.top);
-        context.lineWidth = 5;
         context.lineCap = 'round';
         if (tool === 'eraser') {
             colour = "#ffffff";
+            context.lineWidth = 15;
             context.strokeStyle = colour;
         } else {
+            context.lineWidth = 5;
             context.strokeStyle = colour;
         }
         context.stroke();
