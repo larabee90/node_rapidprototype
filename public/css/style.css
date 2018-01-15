@@ -50,7 +50,7 @@ h1 {
   width: 48px; }
 
 .toolbar {
-  height: 70px;
+  grid-row: 1 / 2;
   width: 100%;
   background-color: #4a4a4a;
   padding-top: 0.12em;
@@ -62,6 +62,11 @@ h1 {
     color: #fff;
     font-family: "Work Sans", sans-serif;
     font-weight: 300; }
+  .toolbar.deviceButtons {
+    float: left;
+    width: 90%; }
+  .toolbar.toolButtons {
+    float: right; }
   .toolbar ul {
     list-style-type: none; }
     .toolbar ul li {
@@ -94,23 +99,26 @@ h1 {
 
 .canvasContainer {
   position: relative;
-  grid-column: 1 / 8;
-  grid-row: 3 /4; }
+  grid-column: 1 / 10;
+  grid-row: 3 /4;
+  display: grid;
+  grid-template-rows: 70px auto; }
 
 #templateImage {
   z-index: -1;
   display: inline;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #fff; }
+  background-color: #fff;
+  grid-row: 2 / 3;
+  grid-column: 1 / 2; }
 
 #paintCanvas {
   z-index: 998;
-  background: rgba(255, 255, 255, 0); }
+  background: rgba(255, 255, 255, 0);
+  grid-row: 2 / 3;
+  grid-column: 1 / 2; }
 
 .messages {
-  grid-column: 8 / end;
+  grid-column: 10 / 12;
   grid-row: 3 / 4; }
 
 #loginContainer {
@@ -173,7 +181,8 @@ h1 {
   font-weight: 500; }
 
 #activeUsers {
-  grid-column: end / auto; }
+  grid-column: 13 / auto;
+  grid-row: 2 / 3; }
   #activeUsers:before {
     content: "USERS";
     font-family: "Work Sans", sans-serif;

@@ -28,8 +28,8 @@ $( document ).ready(function() {
     // get canvas element and create context
     var canvas = document.getElementById('paintCanvas');
     var context = canvas.getContext('2d');
-    // var width   = window.innerWidth * 0.60;
-    // var height  = window.innerHeight * 0.50;
+    var width   = window.innerWidth * 0.60;
+    var height  = window.innerHeight * 0.50;
     var width = 600;
     var height = 500;
     var socket = io.connect();
