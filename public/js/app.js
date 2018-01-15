@@ -16,8 +16,8 @@ $( document ).ready(function() {
     var usernameInput = document.getElementById("usernameInput");
     var usernameSubmit = document.getElementById("usernameSubmit");
 
-    var cw = $(enterUsername).width();
-    $(enterUsername).css({'height':cw+'px'});
+    // var cw = $(enterUsername).width();
+    // $(enterUsername).css({'height':cw+'px'});
 
     var mouse = {
         click: false,
