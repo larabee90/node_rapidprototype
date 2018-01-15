@@ -125,7 +125,7 @@ var socket = io("http://localhost:3000");
 
         p.innerHTML = "<span style = 'color:" + colour + "'>" + user + ": </span>" + message;
 
-        document.querySelector("div.messages").appendChild(p);
+        $("#messages")[0].appendChild(p);
     }
 
 //button tings
