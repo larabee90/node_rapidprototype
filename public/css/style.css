@@ -121,6 +121,8 @@ h1 {
   grid-column-start: 5;
   grid-column-end: 9;
   grid-row: 2 / 3; }
+  #enterUsername h1 {
+    font-weight: 400; }
 
 #loginTitle {
   grid-column: 4 / 10; }
@@ -128,9 +130,9 @@ h1 {
     width: 100%;
     text-align: center; }
   #loginTitle h1 {
-    font-size: 1em; }
+    font-size: 3em; }
   #loginTitle h3 {
-    font-size: 0.5em; }
+    font-size: 1em; }
 
 #activeUsers {
   float: right; }
