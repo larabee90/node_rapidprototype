@@ -75,6 +75,7 @@ io.on('connection', function (socket) {
 
         for(i = 0; i < users.length; i++) {
             console.log("loop works");
+            console.log(users.length);
             socket.emit("newUser", users[i].name , users[i].colour);
 
         }

@@ -9,6 +9,7 @@ $( document ).ready(function() {
     var userColour =  "";
     var typing = false;
     var lastTypingTime;
+    var isLoggedIn = false;
 
 
     var loginContainer = document.getElementById("loginContainer");
@@ -178,17 +179,20 @@ desktopButton.onclick = function () {
         if (isLoggedIn) {
             console.log("new user added: " + user);
             console.log(user + " colour is " + colour);
+
             var newUser = document.createElement("div");
             $(newUser).addClass("activeUser");
             $(newUser).css("background-color" , colour);
             document.getElementById("activeUsers").appendChild(newUser);
             colours.shift();
+
         }
     });
 
 
     document.getElementById("loginForm").onsubmit = function () {
         username = usernameInput.value
+        isLoggedIn = true;
         socket.emit("addUsername", username);
         $(loginContainer).hide();
 
