@@ -30,16 +30,18 @@ body, #loginContainer {
   padding: 2em;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 4em 4em auto 6em;
-  grid-gap: 1em; }
+  grid-template-rows: 2em 4em auto 4em;
+  grid-gap: 0.5em;
+  align-items: center; }
 
 #appName {
   grid-column: 1 / end;
   grid-row: 1 / 2; }
 
 #title {
-  grid-column: 1 / 5;
-  grid-row: 2 / 3; }
+  grid-column: 1 / 9;
+  grid-row: 2 / 3;
+  margin: 0; }
 
 h1 {
   font-family: "Work Sans", sans-serif; }
@@ -118,7 +120,7 @@ h1 {
   grid-column: 1 / 2; }
 
 .messages {
-  grid-column: 10 / 12;
+  grid-column: 10 / end;
   grid-row: 3 / 4; }
 
 #loginContainer {
@@ -181,15 +183,17 @@ h1 {
   font-weight: 500; }
 
 #activeUsers {
-  grid-column: 13 / auto;
-  grid-row: 2 / 3; }
-  #activeUsers:before {
-    content: "USERS";
-    font-family: "Work Sans", sans-serif;
-    color: #4a4a4a;
+  grid-column-end: 13;
+  justify-self: end;
+  grid-row-end: 2 / 3;
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  align-items: center; }
+  #activeUsers p {
     font-weight: 500;
     margin-right: 0.5em;
-    margin-bottom: 0.5em; }
+    display: inline; }
 
 .activeUser {
   display: inline-block;
