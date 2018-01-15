@@ -16,6 +16,8 @@ $( document ).ready(function() {
     var usernameInput = document.getElementById("usernameInput");
     var usernameSubmit = document.getElementById("usernameSubmit");
 
+    var cw = $(enterUsername).width();
+    $(enterUsername).css({'height':cw+'px'});
 
     var mouse = {
         click: false,
@@ -205,8 +207,8 @@ desktopButton.onclick = function () {
     usernameSubmit.onclick = function () {
         username = usernameInput.value
         socket.emit("addUsername", username);
-        $(loginContainer).hide()
-        isLoggedIn = true
+        $(loginContainer).hide();
+        isLoggedIn = true;
 
     };
 
