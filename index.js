@@ -33,13 +33,18 @@ io.on('connection', function (socket) {
 
     // first send the history to the new client
     for (var i in linesDrawn) {
-        socket.emit('draw_line', { line: linesDrawn[i] } );
+        socket.emit('draw_line', { line: linesDrawn[i].line }, linesDrawn[i].colour, linesDrawn[i].tool );
     }
 
     // add handler for message type "draw_line".
     socket.on('draw_line', function (data, colour, tool) {
         // add received line to history
-        linesDrawn.push(data.line);
+        var newLine = new Object()
+        newLine.line = data.line;
+        newLine.colour = colour;
+        newLine.tool = tool;
+
+        linesDrawn.push(newLine);
         // send line to all clients
         io.emit('draw_line', { line: data.line }, colour, tool);
     });
