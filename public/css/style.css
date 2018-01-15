@@ -77,7 +77,8 @@ h1 {
 .canvasContainer {
   width: 50%;
   height: 80%;
-  position: relative; }
+  position: relative;
+  margin-right: 0; }
 
 #templateImage {
   z-index: -1;
@@ -110,9 +111,22 @@ h1 {
 
 #activeUsers {
   float: right; }
+  #activeUsers:before {
+    content: "USERS";
+    font-family: "Work Sans", sans-serif;
+    color: #4a494a;
+    font-weight: 400;
+    margin-right: 0.5em;
+    margin-bottom: 0.5em; }
 
 .activeUser {
-  width: 20px;
-  height: 20px; }
+  display: inline-block;
+  margin-right: 0.5em;
+  width: 35px;
+  height: 35px;
+  border: 2px solid #fff;
+  border-radius: 50%; }
+  .activeUser:last-of-type {
+    margin-right: 0; }
 
 /*# sourceMappingURL=style.css.map */

@@ -71,7 +71,7 @@ $( document ).ready(function() {
         context.lineWidth = 5;
         context.lineCap = 'round';
         if (tool === 'eraser') {
-            colour = '#ffffff';
+            colour = "#ffffff";
             context.strokeStyle = colour;
         } else {
             context.strokeStyle = colour;
@@ -93,7 +93,6 @@ $( document ).ready(function() {
         setTimeout(mainLoop, 25);
     }
     mainLoop();
-
 
 //////////////////////////////////////
 

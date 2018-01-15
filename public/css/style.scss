@@ -105,6 +105,7 @@ h1 {
   width: 50%;
   height: 80%;
   position: relative;
+  margin-right: 0;
 }
 
 #templateImage {
@@ -144,9 +145,24 @@ h1 {
 
 #activeUsers {
   float:right;
+  &:before {
+    content: "USERS";
+    font-family: $work-sans;
+    color: $grey;
+    font-weight: $font-med;
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+  }
 }
 
 .activeUser {
-  width: 20px;
-  height: 20px
+  display: inline-block;
+  margin-right: 0.5em;
+  width: 35px;
+  height: 35px;
+  border: 2px solid $white;
+  border-radius: 50%;
+  &:last-of-type {
+    margin-right: 0;
+  }
 }
