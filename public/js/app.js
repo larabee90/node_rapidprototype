@@ -25,14 +25,31 @@ $( document ).ready(function() {
     };
     // get canvas element and create context
     var canvas = document.getElementById('paintCanvas');
+    var canvasContainer = document.getElementById('canvasContainer');
     var context = canvas.getContext('2d');
-    var width = 600;
-    var height = 500;
+    
+    var width = $(canvasContainer).width();
+    var height = $(canvasContainer).width();
+
+    function respondCanvas(){
+        // $(canvas).attr('width', $(canvasContainer).width() );
+        // $(canvas).attr('height', $(canvasContainer).height() );
+        canvas.width =  $(canvasContainer).width();
+        canvas.height =  $(canvasContainer).height();
+
+        console.log(canvas.width, canvas.height);
+
+
+    };
+
+    $(window).resize(respondCanvas);
     var socket = io.connect();
+    respondCanvas();
+
 
     // set canvas width and height
-    canvas.width = width;
-    canvas.height = height;
+    //canvas.width = width;
+    //canvas.height = height;
 
     var tool = 'pen';
 
@@ -63,6 +80,7 @@ $( document ).ready(function() {
         var rect = canvas.getBoundingClientRect();
         context.moveTo(line[0].x * width - rect.left, line[0].y * height - rect.top);
         context.lineTo(line[1].x * width - rect.left, line[1].y * height - rect.top);
+
         context.lineCap = 'round';
         if (tool === 'eraser') {
             colour = "#ffffff";
@@ -73,7 +91,7 @@ $( document ).ready(function() {
             context.strokeStyle = colour;
         }
         context.stroke();
-        console.log(context.strokeStyle);
+
     });
 
     // main loop, running every 25ms
@@ -81,7 +99,6 @@ $( document ).ready(function() {
         // check if the user is drawing
         if (mouse.click && mouse.move && mouse.pos_prev) {
             // send line to to the server
-            console.log(userColour);
             socket.emit('draw_line', { line: [ mouse.pos, mouse.pos_prev ] }, userColour, tool);
             mouse.move = false;
         }
