@@ -16,6 +16,8 @@ $( document ).ready(function() {
     var usernameInput = document.getElementById("usernameInput");
     var usernameSubmit = document.getElementById("usernameSubmit");
 
+    var cw = $(enterUsername).width();
+    $(enterUsername).css({'height':cw+'px'});
 
     var mouse = {
         click: false,
@@ -101,11 +103,11 @@ $( document ).ready(function() {
 var socket = io("http://localhost:3000");
 
 socket.on("disconnect", function() {
-    setTitle("Disconnected");
+    //setTitle("Disconnected");
 });
 
 socket.on("connect", function() {
-    setTitle("Connected to Cyber Chat");
+    //setTitle("Connected to Cyber Chat");
 });
 
     socket.on("message", function (message, user, colour) {
@@ -204,8 +206,8 @@ desktopButton.onclick = function () {
     usernameSubmit.onclick = function () {
         username = usernameInput.value
         socket.emit("addUsername", username);
-        $(loginContainer).hide()
-        isLoggedIn = true
+        $(loginContainer).hide();
+        isLoggedIn = true;
 
     };
 
