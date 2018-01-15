@@ -55,7 +55,12 @@ io.on('connection', function (socket) {
             io.emit("deleteWelcomeMessage");
         }
         io.emit("message", message, user, colour);
-        messages.push(message);
+        var newMessage = {
+            'username': user,
+            'colour': colour,
+            'message': message
+        }
+        messages.push(newMessage);
 
     });
 
@@ -78,12 +83,21 @@ io.on('connection', function (socket) {
             console.log(users.length);
             socket.emit("newUser", users[i].name , users[i].colour);
 
+
         }
 
         if(messages.length !== 0){
 
             socket.emit("deleteWelcomeMessage");
         };
+
+        for(i=0; i<messages.length; i++){
+            console.log("message loop ran");
+            console.log (messages[i].message,  messages[i].username, messages[i].colour);
+            socket.emit("message", messages[i].message, messages[i].username, messages[i].colour);
+        }
+
+
 
         socket.emit("assignColour", user.colour);
 
