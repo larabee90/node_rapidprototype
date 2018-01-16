@@ -206,22 +206,46 @@ desktopButton.onclick = function () {
     function makeUserLabel (user, userID) {
 
             var activeUser = document.getElementById(userID);
-            var userHover = document.createElement("p");
-            $(userHover).addClass("userHover");
+
+            //makes the hover element
+            var newUserHover = document.createElement("p");
+
+            //give class and id
+            $(newUserHover).addClass("userHover");
+            newUserHover.id = "hover" + user;
+
+            var x =   $(activeUser).offset().left + 4;
+
+            //still need to lower this a bit
+            var y = $(activeUser).offset().top - 34;
+
+
+            //DOES NOT FUCKING WORK
+            $(newUserHover).css({
+                "top": y,
+                "left": x
+
+            })
+
+
+            //
+            // console.log(activeUserPosition.x, activeUserPosition,y);
+            //
+            // //change the position so its just under the name
+            // $(userHoverId).css({"top": yPositionHover, "left": activeUserPosition.x});
 
             $(activeUser).hover(
 
                 function(){
                     console.log("hovered");
-                    userHover.innerText = user;
-                    document.getElementById(userID).appendChild(userHover);
+                    newUserHover.innerText = user;
+                    document.getElementsByTagName("body")[0].appendChild(newUserHover);
                     console.log(user);
-
 
                 },
                 function() {
                     console.log("unhovered");
-                    $(userHover).remove();
+                    $(newUserHover).remove();
                 }
 
             );
