@@ -29,14 +29,29 @@ var nextID = 0;
 
 var coloursAvailable = ["#FA4C61", "#52A2FF", "#50E3C2", "#F8E71C"];
 
+
+
 // event-handler for new incoming connections
 io.on('connection', function (socket) {
 
     //// NEW CANVAS
     // first send the history to the new client
-    for (var i in linesDrawn) {
-        socket.emit('draw_line', { line: linesDrawn[i].line }, linesDrawn[i].colour, linesDrawn[i].tool );
+
+    function drawAllLines(){
+        for (var i in linesDrawn) {
+            socket.emit('draw_line', { line: linesDrawn[i].line }, linesDrawn[i].colour, linesDrawn[i].tool );
+        }
     }
+
+    drawAllLines()
+
+    socket.on('getAllCanvasLines', function(){
+
+        drawAllLines();
+
+
+    });
+
 
     // add handler for message type "draw_line".
     socket.on('draw_line', function (data, colour, tool) {

@@ -30,17 +30,21 @@ $( document ).ready(function() {
     var canvasContainer = document.getElementById('canvasContainer');
     var context = canvas.getContext('2d');
 
+
+
     var width = $('#canvasContainer').width();
     var height = $('#canvasContainer').height();
 
     function respondCanvas(){
         canvas.width =  $('#canvasContainer').width();
         canvas.height =  $('#canvasContainer').height();
-
-        console.log(canvas.width, canvas.height);
     };
 
-    $(window).resize(respondCanvas);
+
+
+
+    $(window).resize(respondCanvas())
+
     var socket = io.connect();
     respondCanvas();
 
@@ -236,7 +240,7 @@ desktopButton.onclick = function () {
                     console.log("hovered");
                     newUserHover.innerText = user;
                     document.getElementsByTagName("body")[0].appendChild(newUserHover);
-                    console.log(user);
+                    console.log(activeUser.id);
 
                 },
                 function() {
