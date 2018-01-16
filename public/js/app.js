@@ -27,7 +27,7 @@ $( document ).ready(function() {
     var canvas = document.getElementById('paintCanvas');
     var canvasContainer = document.getElementById('canvasContainer');
     var context = canvas.getContext('2d');
-    
+
     var width = $(canvasContainer).width();
     var height = $(canvasContainer).width();
 
@@ -78,6 +78,7 @@ $( document ).ready(function() {
         var line = data.line;
         context.beginPath();
         var rect = canvas.getBoundingClientRect();
+        
         context.moveTo(line[0].x * width - rect.left, line[0].y * height - rect.top);
         context.lineTo(line[1].x * width - rect.left, line[1].y * height - rect.top);
 

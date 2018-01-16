@@ -30,7 +30,7 @@ var coloursAvailable = ["#FA4C61", "#52A2FF", "#50E3C2", "#F8E71C"];
 
 // event-handler for new incoming connections
 io.on('connection', function (socket) {
-    
+
     //// NEW CANVAS
     // first send the history to the new client
     for (var i in linesDrawn) {
