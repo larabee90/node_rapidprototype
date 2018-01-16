@@ -25,6 +25,7 @@ var messages=[];
 var linesDrawn = [];
 
 var users = [];
+var nextID = 0;
 
 var coloursAvailable = ["#FA4C61", "#52A2FF", "#50E3C2", "#F8E71C"];
 
@@ -85,17 +86,19 @@ io.on('connection', function (socket) {
         var user = {
 
             'name': username,
-            'colour': coloursAvailable[0]
+            'colour': coloursAvailable[0],
+            'userID': nextID
         };
 
         users.push(user);
+        nextID++;
 
 
         //get all the active users indicated at top right for new user
         for(i = 0; i < users.length; i++) {
             console.log("loop works");
             console.log(users.length);
-            socket.emit("newUser", users[i].name , users[i].colour);
+            socket.emit("newUser", users[i].name , users[i].colour, users[i].userID);
 
         }
         //delete instructions in messages div if there have already been messages posted
@@ -119,6 +122,7 @@ io.on('connection', function (socket) {
 
         //delete colour assigned from array
         coloursAvailable.shift();
+
 
     });
 

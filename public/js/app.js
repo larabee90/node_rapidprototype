@@ -11,6 +11,8 @@ $( document ).ready(function() {
     var lastTypingTime;
     var isLoggedIn = false;
 
+    var users= [];
+
 
     var loginContainer = document.getElementById("loginContainer");
     var enterUsername = document.getElementById("enterUsername");
@@ -199,16 +201,47 @@ desktopButton.onclick = function () {
 
 //login tings
 
-    socket.on("newUser", function (user, colour) {
+    //active user hover
+
+    function makeUserLabel (user, userID) {
+
+            var activeUser = document.getElementById(userID);
+            var userHover = document.createElement("p");
+            $(userHover).addClass("userHover");
+
+            $(activeUser).hover(
+
+                function(){
+                    console.log("hovered");
+                    userHover.innerText = user;
+                    document.getElementById(userID).appendChild(userHover);
+                    console.log(user);
+
+
+                },
+                function() {
+                    console.log("unhovered");
+                    $(userHover).remove();
+                }
+
+            );
+
+
+    }
+
+    socket.on("newUser", function (user, colour, userID) {
         if (isLoggedIn) {
             console.log("new user added: " + user);
             console.log(user + " colour is " + colour);
 
             var newUser = document.createElement("div");
             $(newUser).addClass("activeUser");
+            newUser.id = userID.toString();
             $(newUser).css("background-color" , colour);
             document.getElementById("activeUsers").appendChild(newUser);
             colours.shift();
+            users.push(user);
+            makeUserLabel(user, userID)
 
         }
     });
@@ -228,4 +261,10 @@ desktopButton.onclick = function () {
         console.log(colour);
     });
 
+
+
+
 });
+
+
+
