@@ -301,6 +301,7 @@ h1 {
   &:last-of-type {
     margin-right: 0;
   }
+  z-index: 1000;
 }
 
 .userHover {

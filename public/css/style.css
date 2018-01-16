@@ -104,7 +104,8 @@ h1 {
   grid-column: 1 / 10;
   grid-row: 3 /4;
   display: grid;
-  grid-template-rows: 70px auto; }
+  grid-template-rows: 70px auto;
+  position: relative; }
 
 #templateImage {
   z-index: -1;
@@ -229,7 +230,8 @@ h1 {
   width: 35px;
   height: 35px;
   border: 2px solid white;
-  border-radius: 50%; }
+  border-radius: 50%;
+  z-index: 1000; }
   .activeUser:last-of-type {
     margin-right: 0; }
 
@@ -240,5 +242,18 @@ h1 {
   padding: 0.3em;
   font-size: 0.7em;
   z-index: 1000; }
+
+#download {
+  background-color: #4a4a4a;
+  color: white;
+  position: absolute;
+  z-index: 998;
+  text-align: center;
+  bottom: 0.5em;
+  right: 0.5em;
+  text-decoration: none;
+  font-size: 0.9em;
+  font-weight: 500;
+  padding: 0.5em 1em 0.5em 1em; }
 
 /*# sourceMappingURL=style.css.map */

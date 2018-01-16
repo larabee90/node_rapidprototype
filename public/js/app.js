@@ -203,6 +203,7 @@ desktopButton.onclick = function () {
 
     //active user hover
 
+
     function makeUserLabel (user, userID) {
 
             var activeUser = document.getElementById(userID);
@@ -214,18 +215,7 @@ desktopButton.onclick = function () {
             $(newUserHover).addClass("userHover");
             newUserHover.id = "hover" + user;
 
-            var x =   $(activeUser).offset().left + 4;
 
-            //still need to lower this a bit
-            var y = $(activeUser).offset().top - 34;
-
-
-            //DOES NOT FUCKING WORK
-            $(newUserHover).css({
-                "top": y,
-                "left": x
-
-            })
 
 
             //
@@ -238,6 +228,17 @@ desktopButton.onclick = function () {
 
                 function(){
                     console.log("hovered");
+
+                    var x =   $(activeUser).offset().left + 4;
+
+                    //still need to lower this a bit
+                    var y = $(activeUser).offset().top - 34;
+
+                    $(newUserHover).css({
+                        "top": y,
+                        "left": x
+
+                    })
                     newUserHover.innerText = user;
                     document.getElementsByTagName("body")[0].appendChild(newUserHover);
                     console.log(activeUser.id);
@@ -265,10 +266,13 @@ desktopButton.onclick = function () {
             document.getElementById("activeUsers").appendChild(newUser);
             colours.shift();
             users.push(user);
-            makeUserLabel(user, userID)
+            return makeUserLabel(user, userID);
 
         }
     });
+
+
+
 
 
     document.getElementById("loginForm").onsubmit = function () {

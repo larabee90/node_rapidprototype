@@ -133,7 +133,7 @@ io.on('connection', function (socket) {
         socket.emit("assignColour", user.colour);
 
         //add new users to active user's legend (top right) in previously signed in users interface
-        socket.broadcast.emit("newUser", username, user.colour);
+        socket.broadcast.emit("newUser", username, user.colour, user.userID);
 
         //delete colour assigned from array
         coloursAvailable.shift();
