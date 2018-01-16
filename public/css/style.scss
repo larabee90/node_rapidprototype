@@ -38,7 +38,7 @@ body, #loginContainer  {
   background-attachment: fixed;
 }
 
-.container {
+#container {
   width:100%;
   height: 100%;
   position:absolute;
@@ -300,4 +300,13 @@ h1 {
   &:last-of-type {
     margin-right: 0;
   }
+}
+
+.userHover {
+  background-color: $grey;
+  color:$white;
+  position: absolute;
+  padding: 0.3em;
+  font-size: 0.7em;
+  z-index: 1000;
 }
