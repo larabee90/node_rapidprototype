@@ -10,7 +10,7 @@ $( document ).ready(function() {
     var typing = false;
     var lastTypingTime;
     var isLoggedIn = false;
-
+    var scale = 1.0;
     var users= [];
 
 
@@ -34,14 +34,10 @@ $( document ).ready(function() {
     var height = $('#canvasContainer').height();
 
     function respondCanvas(){
-        // $(canvas).attr('width', $(canvasContainer).width() );
-        // $(canvas).attr('height', $(canvasContainer).height() );
         canvas.width =  $('#canvasContainer').width();
         canvas.height =  $('#canvasContainer').height();
 
         console.log(canvas.width, canvas.height);
-
-
     };
 
     $(window).resize(respondCanvas);
