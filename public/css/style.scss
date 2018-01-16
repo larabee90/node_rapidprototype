@@ -145,7 +145,8 @@ h1 {
 #templateImage {
   z-index: -1;
   display:inline;
-  background-color: $white;
+  //background-color: $white;
+  background-color: none;
   grid-row: 2 / 3;
   grid-column: 1 / 2;
 }
@@ -154,7 +155,7 @@ h1 {
   width:100%;
   height:100%;
   z-index: 998;
-  background-color: rgba($white, $alpha);
+  background-color: rgba($grey, $alpha);
   grid-row: 2 / 3;
   grid-column: 1 / 2;
 }

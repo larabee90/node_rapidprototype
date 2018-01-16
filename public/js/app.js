@@ -30,14 +30,14 @@ $( document ).ready(function() {
     var canvasContainer = document.getElementById('canvasContainer');
     var context = canvas.getContext('2d');
 
-    var width = $(canvasContainer).width();
-    var height = $(canvasContainer).width();
+    var width = $('#canvasContainer').width();
+    var height = $('#canvasContainer').height();
 
     function respondCanvas(){
         // $(canvas).attr('width', $(canvasContainer).width() );
         // $(canvas).attr('height', $(canvasContainer).height() );
-        canvas.width =  $(canvasContainer).width();
-        canvas.height =  $(canvasContainer).height();
+        canvas.width =  $('#canvasContainer').width();
+        canvas.height =  $('#canvasContainer').height();
 
         console.log(canvas.width, canvas.height);
 
@@ -50,8 +50,8 @@ $( document ).ready(function() {
 
 
     // set canvas width and height
-    //canvas.width = width;
-    //canvas.height = height;
+    // canvas.width = width;
+    // canvas.height = height;
 
     var tool = 'pen';
 
