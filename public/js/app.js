@@ -266,7 +266,7 @@ desktopButton.onclick = function () {
             document.getElementById("activeUsers").appendChild(newUser);
             colours.shift();
             users.push(user);
-            return makeUserLabel(user, userID);
+            makeUserLabel(user, userID);
 
         }
     });
