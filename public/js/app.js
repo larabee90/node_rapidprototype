@@ -30,10 +30,11 @@ $( document ).ready(function() {
     var canvasContainer = document.getElementById('canvasContainer');
     var context = canvas.getContext('2d');
 
+    var width = 600;
+    var height = 500;
 
-
-    var width = $('#canvasContainer').width();
-    var height = $('#canvasContainer').height();
+    // var width = $('#canvasContainer').width();
+    // var height = $('#canvasContainer').height();
 
     function respondCanvas(){
         canvas.width =  $('#canvasContainer').width();
@@ -43,15 +44,15 @@ $( document ).ready(function() {
 
 
 
-    $(window).resize(respondCanvas())
+    // $(window).resize(respondCanvas())
 
     var socket = io.connect();
-    respondCanvas();
+    // respondCanvas();
 
 
     // set canvas width and height
-    // canvas.width = width;
-    // canvas.height = height;
+    canvas.width = width;
+    canvas.height = height;
 
     var tool = 'pen';
 
