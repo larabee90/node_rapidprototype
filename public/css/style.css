@@ -1,51 +1,257 @@
-/*
-Error: Invalid CSS after "  width:100%": expected "{", was ";"
-        on line 43 of style.scss
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:300,400,500");
+* {
+  box-sizing: border-box;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 400;
+  color: #4a4a4a; }
 
-38:   background-attachment: fixed;
-39: }
-40: //container
-41: #container {
-42: <<<<<<< HEAD
-43:   width:100%;
-44:   height: 100%;
-45: =======
-46:   width: 1100px;
-47:   height: 600px;
-48: >>>>>>> remotes/origin/Ana
+html {
+  height: 100%; }
 
-Backtrace:
-style.scss:43
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/scss/parser.rb:1278:in `expected'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/scss/parser.rb:1208:in `expected'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/scss/parser.rb:1203:in `tok!'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/scss/parser.rb:677:in `block'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/scss/parser.rb:747:in `declaration_or_ruleset'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/scss/parser.rb:697:in `block_child'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/scss/parser.rb:686:in `block_contents'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/scss/parser.rb:678:in `block'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/scss/parser.rb:670:in `ruleset'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/scss/parser.rb:696:in `block_child'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/scss/parser.rb:689:in `block_contents'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/scss/parser.rb:137:in `stylesheet'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/scss/parser.rb:41:in `parse'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/engine.rb:414:in `_to_tree'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/engine.rb:389:in `_render_with_sourcemap'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/engine.rb:307:in `render_with_sourcemap'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/plugin/compiler.rb:462:in `update_stylesheet'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/plugin/compiler.rb:209:in `each'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/plugin.rb:82:in `update_stylesheets'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/exec/sass_scss.rb:340:in `watch_or_update'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/exec/sass_scss.rb:51:in `process_result'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/exec/base.rb:52:in `parse'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/lib/sass/exec/base.rb:19:in `parse!'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.5.3/bin/scss:13:in `<top (required)>'
-/usr/local/bin/scss:23:in `load'
-/usr/local/bin/scss:23:in `<main>'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: Invalid CSS after \"  width:100%\": expected \"{\", was \";\"\A         on line 43 of style.scss\A \A 38:   background-attachment: fixed;\A 39: }\A 40: //container\A 41: #container {\A 42: <<<<<<< HEAD\A 43:   width:100%;\A 44:   height: 100%;\A 45: =======\A 46:   width: 1100px;\A 47:   height: 600px;\A 48: >>>>>>> remotes/origin/Ana"; }
+body, #loginContainer {
+  background: #ff9068;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#ff9068, #fd746c);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#ff9068, #fd746c);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#ff9068, #fd746c);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#ff9068, #fd746c);
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed; }
+
+#container {
+  width: 1200px;
+  height: 600px;
+  position: absolute;
+  padding: 2em;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 2em 4em auto 4em;
+  grid-gap: 0.5em;
+  align-items: center; }
+
+#appName {
+  grid-column: 1 / end;
+  grid-row: 1 / 2; }
+
+#title {
+  grid-column: 1 / 9;
+  grid-row: 2 / 3;
+  margin: 0; }
+
+h1 {
+  font-family: "Work Sans", sans-serif; }
+
+.color {
+  display: inline-block;
+  height: 48px;
+  width: 48px; }
+
+.toolbar {
+  grid-row: 1 / 2;
+  width: 100%;
+  background-color: #4a4a4a;
+  padding-top: 0.12em;
+  padding-left: 1em; }
+  .toolbar p {
+    display: inline-block;
+    float: left;
+    margin-right: 2em;
+    color: white;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 300; }
+  .toolbar.deviceButtons {
+    float: left;
+    width: 90%; }
+  .toolbar.toolButtons {
+    float: right; }
+  .toolbar ul {
+    list-style-type: none; }
+    .toolbar ul li {
+      float: left; }
+      .toolbar ul li button {
+        display: inline-block;
+        margin-right: 1em;
+        height: 35px;
+        width: 50px; }
+      .toolbar ul li #mobileButton {
+        background: url("../img/iPhoneSmall.png") no-repeat center center;
+        border: none; }
+      .toolbar ul li #tabletButton {
+        background: url("../img/iPadSmall.png") no-repeat center center;
+        border: none; }
+      .toolbar ul li #desktopButton {
+        background: url("../img/desktopSmall.png") no-repeat center center;
+        border: none; }
+      .toolbar ul li #penMode {
+        background: url("../img/penIcon.png") no-repeat center center;
+        border: none; }
+      .toolbar ul li #eraserMode {
+        background: url("../img/eraserIcon.png") no-repeat center center;
+        border: none; }
+  .toolbar.deviceButtons {
+    float: left;
+    margin-right: 2em; }
+  .toolbar.toolButtons {
+    float: right; }
+
+#canvasContainer {
+  height: 100%;
+  grid-column: 1 / 9;
+  grid-row: 3 /4;
+  display: grid;
+  grid-template-rows: 70px auto;
+  position: relative; }
+
+#templateImage {
+  z-index: -1;
+  display: inline;
+  background-color: white;
+  grid-row: 2 / 3;
+  grid-column: 1 / 2; }
+
+#paintCanvas {
+  width: 742px;
+  height: 600px;
+  z-index: 998;
+  background-color: rgba(255, 255, 255, 0.9);
+  grid-row: 2 / 3;
+  grid-column: 1 / 2; }
+
+#chatContainer {
+  grid-column: 9 / 13;
+  grid-row: 3 / 4;
+  display: grid;
+  grid-template-rows: 1fr 0.1em 4em;
+  align-self: stretch;
+  overflow: scroll; }
+  #chatContainer #messages, #chatContainer #messageForm {
+    background-color: rgba(255, 255, 255, 0.9); }
+  #chatContainer #messages {
+    grid-row: 1 /2;
+    grid-column: 1 / 2;
+    padding: 0.5em;
+    overflow: scroll;
+    max-height: 100%;
+    overflow-y: auto; }
+    #chatContainer #messages p {
+      font-size: 0.8em;
+      margin: 0 0 0.8em 0; }
+  #chatContainer #messageForm {
+    grid-row: 3 / end;
+    grid-column: 1 / end; }
+    #chatContainer #messageForm #message {
+      background: transparent;
+      border: none;
+      width: 100%;
+      height: 100%;
+      padding: 0.5em 0.5em 3.5em 0.5em; }
+
+#loginContainer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 999;
+  display: grid;
+  padding: 5px;
+  grid-gap: 10px;
+  grid-template-columns: repeat(12, [col-start] 1fr);
+  grid-template-rows: 0.5fr 1fr 1fr;
+  align-items: center; }
+
+#enterUsername {
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  grid-column-start: 5;
+  grid-column-end: 9;
+  grid-row: 2 / auto; }
+  #enterUsername h1, #enterUsername h3 {
+    text-align: center;
+    width: 100%; }
+  #enterUsername h1 {
+    font-weight: 500; }
+  #enterUsername h3 {
+    font-weight: 400; }
+
+#loginTitle {
+  grid-column: 4 / 10; }
+  #loginTitle h1, #loginTitle h2 {
+    width: 100%;
+    text-align: center;
+    font-weight: 400; }
+  #loginTitle h1 {
+    font-size: 3em;
+    margin: 1em 0 0.3em 0; }
+  #loginTitle h2 {
+    font-size: 1.5em;
+    margin: 0; }
+
+#usernameInput {
+  width: 100%;
+  height: 2em;
+  font-size: 2em;
+  background: transparent;
+  border-width: 0 0 1px 0;
+  border-color: #979797;
+  margin-bottom: 0.6em;
+  text-align: center; }
+
+#usernameSubmit {
+  width: 100%;
+  height: 48px;
+  background-color: #fd746c;
+  color: white;
+  text-align: center;
+  border: none;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  font-weight: 500; }
+
+#activeUsers {
+  grid-column: 13 / 9;
+  justify-self: end;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center; }
+  #activeUsers p {
+    font-weight: 500;
+    margin-right: 0.5em;
+    display: inline; }
+
+.activeUser {
+  display: inline-block;
+  margin-right: 0.5em;
+  width: 35px;
+  height: 35px;
+  border: 2px solid white;
+  border-radius: 50%;
+  z-index: 1000; }
+  .activeUser:last-of-type {
+    margin-right: 0; }
+
+.userHover {
+  background-color: #4a4a4a;
+  color: white;
+  position: absolute;
+  padding: 0.3em;
+  font-size: 0.7em;
+  z-index: 1000; }
+
+#download {
+  background-color: #4a4a4a;
+  color: white;
+  position: absolute;
+  z-index: 998;
+  text-align: center;
+  bottom: 0.5em;
+  right: 0.5em;
+  text-decoration: none;
+  font-size: 0.9em;
+  font-weight: 500;
+  padding: 0.5em 1em 0.5em 1em; }
+
+/*# sourceMappingURL=style.css.map */

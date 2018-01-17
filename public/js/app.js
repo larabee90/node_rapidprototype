@@ -30,8 +30,8 @@ $( document ).ready(function() {
     var canvasContainer = document.getElementById('canvasContainer');
     var context = canvas.getContext('2d');
 
-    var width = 600;
-    var height = 500;
+    var width = 742;
+    var height = 600;
 
     // var width = $('#canvasContainer').width();
     // var height = $('#canvasContainer').height();
