@@ -30,8 +30,8 @@ $( document ).ready(function() {
     var canvasContainer = document.getElementById('canvasContainer');
     var context = canvas.getContext('2d');
 
-    var width = 672
-    var height = 600
+    var width = 742;
+    var height = 600;
 
     console.log(width, height);
     //
@@ -276,7 +276,12 @@ desktopButton.onclick = function () {
 
 
     document.getElementById("loginForm").onsubmit = function () {
-        username = usernameInput.value
+        if (usernameInput.value === "") {
+            username = "Anonymous"
+        } else {
+            username = usernameInput.value;
+        }
+
         isLoggedIn = true;
         socket.emit("addUsername", username);
         $(loginContainer).hide();

@@ -24,7 +24,7 @@ body, #loginContainer {
   background-attachment: fixed; }
 
 #container {
-  width: 1000px;
+  width: 1200px;
   height: 600px;
   position: absolute;
   padding: 2em;
@@ -101,7 +101,7 @@ h1 {
 
 #canvasContainer {
   height: 100%;
-  grid-column: 1 / 10;
+  grid-column: 1 / 9;
   grid-row: 3 /4;
   display: grid;
   grid-template-rows: 70px auto;
@@ -115,7 +115,7 @@ h1 {
   grid-column: 1 / 2; }
 
 #paintCanvas {
-  width: 672px;
+  width: 742px;
   height: 600px;
   z-index: 998;
   background-color: rgba(255, 255, 255, 0.9);
@@ -123,7 +123,7 @@ h1 {
   grid-column: 1 / 2; }
 
 #chatContainer {
-  grid-column: 10 / 13;
+  grid-column: 9 / 13;
   grid-row: 3 / 4;
   display: grid;
   grid-template-rows: 1fr 0.1em 4em;
@@ -212,11 +212,9 @@ h1 {
   font-weight: 500; }
 
 #activeUsers {
-  grid-column-end: 13;
+  grid-column: 13 / 9;
   justify-self: end;
-  grid-row-end: 2 / 3;
   display: grid;
-  grid-auto-columns: 1fr;
   grid-auto-flow: column;
   align-items: center; }
   #activeUsers p {
