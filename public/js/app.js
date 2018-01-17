@@ -289,6 +289,18 @@ desktopButton.onclick = function () {
         console.log(colour);
     });
 
+    function downloadCanvas(link, canvas, filename) {
+        link.href = document.getElementById(canvas).toDataURL();
+        link.download = filename;
+    }
+
+    document.getElementById('download').addEventListener('click', function() {
+        downloadCanvas(this, 'paintCanvas', 'team-proto.png');
+        
+    }, false);
+
+
+
 
 
 
