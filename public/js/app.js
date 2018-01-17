@@ -30,28 +30,28 @@ $( document ).ready(function() {
     var canvasContainer = document.getElementById('canvasContainer');
     var context = canvas.getContext('2d');
 
+    var width = 672
+    var height = 600
+
+    console.log(width, height);
+    //
+    // function respondCanvas(){
+    //     canvas.width =  $('#canvasContainer').width();
+    //     canvas.height =  $('#canvasContainer').height();
+    // };
 
 
-    var width = $('#canvasContainer').width();
-    var height = $('#canvasContainer').height();
-
-    function respondCanvas(){
-        canvas.width =  $('#canvasContainer').width();
-        canvas.height =  $('#canvasContainer').height();
-    };
 
 
-
-
-    $(window).resize(respondCanvas())
+    //$(window).resize(respondCanvas())
 
     var socket = io.connect();
-    respondCanvas();
+    //respondCanvas();
 
 
     // set canvas width and height
-    // canvas.width = width;
-    // canvas.height = height;
+    canvas.width = width;
+    canvas.height = height;
 
     var tool = 'pen';
 

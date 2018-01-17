@@ -26,6 +26,9 @@ html {
   height: 100%;
 }
 
+body {
+
+}
 body, #loginContainer  {
   background: #ff9068; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient($light-pink, $dark-pink); /* For Safari 5.1 to 6.0 */
@@ -39,8 +42,8 @@ body, #loginContainer  {
 }
 
 #container {
-  width:100%;
-  height: 100%;
+  width: 1000px;
+  height: 600px;
   position:absolute;
   padding: 2em;
   display: grid;
@@ -152,8 +155,8 @@ h1 {
 }
 
 #paintCanvas {
-  width:100%;
-  height:100%;
+  width:672px;
+  height:600px;
   z-index: 998;
   background-color: rgba($white, $alpha);
   grid-row: 2 / 3;
