@@ -13,11 +13,64 @@ $( document ).ready(function() {
     var scale = 1.0;
     var users= [];
 
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCO_ZMnTNY_WwmbfYoZ-6TAyAqML0Zta5s",
+        authDomain: "teamproto-192820.firebaseapp.com",
+        databaseURL: "https://teamproto-192820.firebaseio.com",
+        projectId: "teamproto-192820",
+        storageBucket: "teamproto-192820.appspot.com",
+        messagingSenderId: "201860244753"
+    };
+    firebase.initializeApp(config);
+
 
     var loginContainer = document.getElementById("loginContainer");
     var enterUsername = document.getElementById("enterUsername");
     var usernameInput = document.getElementById("usernameInput");
     var usernameSubmit = document.getElementById("usernameSubmit");
+
+    var provider = new firebase.auth.GoogleAuthProvider();
+
+    $('button').click(function(){
+        firebase.auth().signInWithRedirect(provider);
+    });
+
+    firebase.auth().getRedirectResult().then(function(result) {
+
+        if( result.credential )
+        {
+
+            var token = result.credential.accessToken;
+
+            var user = result.user;
+
+            firebase.database().ref('users/'+user.uid).set({
+                name: user.displayName,
+                email: user.email,
+                token: token,
+                user: user.uid
+            });
+
+        }
+
+
+    }).catch(function(error) {
+
+        console.log( error.code );
+        console.log( error.message );
+
+    });
+
+    firebase.auth().onAuthStateChanged(function(user){
+        if(user)
+        {
+            console.log( 'LOGGED IN' );
+            console.log( user );
+            console.log( user.uid );
+            console.log( user.displayName );
+        }
+    });
 
     var mouse = {
         click: false,
