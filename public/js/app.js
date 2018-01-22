@@ -35,7 +35,7 @@ $( document ).ready(function() {
     var usernameInput = document.getElementById("usernameInput");
     var usernameSubmit = document.getElementById("usernameSubmit");
 
-    $("#titleContainer").hide();
+
 
     var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -82,6 +82,13 @@ $( document ).ready(function() {
             isLoggedIn = true;
             socket.emit("addUsername", username);
             $(loginContainer).hide();
+
+            if (users.length < 0) {
+                $("#titleContainer").hide();
+
+            } else {
+                console.log("user needs to set title");
+            }
 
         } else {
             isLoggedIn = false;
@@ -223,9 +230,6 @@ var socket = io("http://localhost:3000");
     };
 
 
-    function setTitle(title) {
-        document.querySelector("h1").innerHTML = title;
-    }
 
     function printMessage(message, user, colour) {
         var p = document.createElement("p");
@@ -342,8 +346,28 @@ desktopButton.onclick = function () {
             colours.shift();
             users.push(user);
             makeUserLabel(user, userID);
+            console.log(users);
+            console.log(users.length);
 
         }
+    });
+
+
+
+    document.forms[0].onsubmit = function () {
+
+        var input = document.getElementById("titleInput");
+        //printMessage(input.value);
+        socket.emit("setProjectTitle", input.value);
+        input.value = '';
+        console.log("title submit running");
+        $("#projectTitle").hide();
+
+    }
+
+    socket.on("changeProjectTitle", function(title){
+        document.getElementById("title").innerHTML = title;
+        console.log("title change should've ran");
     });
 
 
@@ -374,25 +398,7 @@ desktopButton.onclick = function () {
         
     }, false);
 
-    if (users.length === 1) {
-        $("#titleContainer").show();
-        console.log("title thing works");
-    } else {
-        console.log(users.length + "users");
-    }
 
-    document.forms[0].onsubmit = function () {
-
-        var input = document.getElementById("titleInput");
-        //printMessage(input.value);
-        socket.emit("setProjectTitle", input.value);
-        input.value = '';
-
-    }
-
-    socket.on("changeProjectTitle", function(title){
-        $("#title").innerText = title;
-    });
 
 
 
