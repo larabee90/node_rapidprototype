@@ -43,6 +43,10 @@ $( document ).ready(function() {
         firebase.auth().signInWithRedirect(provider);
     });
 
+    $('#googleSignOut').click(function(){
+       firebase.auth().signOut();
+    });
+
     firebase.auth().getRedirectResult().then(function(result) {
 
         if( result.credential )
@@ -81,6 +85,9 @@ $( document ).ready(function() {
             socket.emit("addUsername", username);
             $(loginContainer).hide();
 
+        } else {
+            isLoggedIn = false;
+            $(loginContainer).show();
         }
     });
 

@@ -247,6 +247,19 @@ h1 {
     font-size: 14px;
     font-family: "Roboto", sans-serif; }
 
+#googleSignOut {
+  height: 50px;
+  position: absolute;
+  left: 1080px;
+  top: 20px;
+  background-color: #4a4a4a;
+  color: white;
+  text-align: center;
+  font-size: 0.9em;
+  font-weight: 500;
+  padding: 0.5em 1em 0.5em 1em;
+  border: none; }
+
 .activeUser {
   display: inline-block;
   margin-right: 0.5em;
