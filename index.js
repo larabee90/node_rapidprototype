@@ -32,6 +32,8 @@ var coloursAvailable = ["#FA4C61", "#52A2FF", "#50E3C2", "#F8E71C"];
 var titleIsSet = false
 var projectTitle = ""
 
+var currentTemplate = ""
+
 
 
 
@@ -98,6 +100,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on("newTemplate", function(img){
+        currentTemplate = img;
         io.emit("drawTemplate", img);
     });
 
@@ -148,6 +151,11 @@ io.on('connection', function (socket) {
 
         //change title
         socket.emit("changeProjectTitle", projectTitle);
+
+        //gives them current template if there is one set by other users
+        if (currentTemplate !== "") {
+            socket.emit("newTemplate", currentTemplate);
+        };
 
 
     });
