@@ -215,7 +215,7 @@ h1 {
   align-items: center;
 
 }
-#enterUsername {
+#enterUsername, #projectTitle {
   padding:10px;
   background-color: rgba($white, $alpha);
   grid-column-start: 5;
@@ -251,7 +251,7 @@ h1 {
       }
   }
 
-  #usernameInput {
+  #titleInput {
     width: 100%;
     height:2em;
     font-size: 2em;
@@ -262,7 +262,7 @@ h1 {
     text-align: center;
   }
 
-  #usernameSubmit {
+  #titleSubmit {
     width:100%;
     height: 48px;
     background-color: $dark-pink;
