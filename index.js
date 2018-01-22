@@ -141,6 +141,11 @@ io.on('connection', function (socket) {
 
     });
 
+    socket.on("setProjectTitle", function(title){
+        io.emit("changeProjectTitle", title);
+    });
+
+
 });
 
 

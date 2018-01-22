@@ -35,7 +35,7 @@ $( document ).ready(function() {
     var usernameInput = document.getElementById("usernameInput");
     var usernameSubmit = document.getElementById("usernameSubmit");
 
-    $("#loginTitle").hide();
+    $("#titleContainer").hide();
 
     var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -84,18 +84,7 @@ $( document ).ready(function() {
         }
     });
 
-    if (users.length === 1) {
-        $("#loginTitle").show();
-    }
 
-    document.forms[0].onsubmit = function () {
-
-        var input = document.getElementById("titleInput");
-        //printMessage(input.value);
-        socket.emit("setProjectTitle", input.value);
-        input.value = '';
-
-    }
 
 
 
@@ -124,7 +113,6 @@ $( document ).ready(function() {
 
 
 
-    // $(window).resize(respondCanvas())
 
     var socket = io.connect();
     // respondCanvas();
@@ -379,6 +367,26 @@ desktopButton.onclick = function () {
         downloadCanvas(this, 'paintCanvas', 'team-proto.png');
         
     }, false);
+
+    if (users.length === 1) {
+        $("#titleContainer").show();
+        console.log("title thing works");
+    } else {
+        console.log(users.length + "users");
+    }
+
+    document.forms[0].onsubmit = function () {
+
+        var input = document.getElementById("titleInput");
+        //printMessage(input.value);
+        socket.emit("setProjectTitle", input.value);
+        input.value = '';
+
+    }
+
+    socket.on("changeProjectTitle", function(title){
+        $("#title").innerText = title;
+    });
 
 
 

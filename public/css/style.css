@@ -9,7 +9,7 @@
 html {
   height: 100%; }
 
-body, #loginContainer {
+body, #loginContainer, #titleContainer {
   background: #ff9068;
   /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(#ff9068, #fd746c);

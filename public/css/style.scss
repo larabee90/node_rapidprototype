@@ -28,7 +28,7 @@ html {
   height: 100%;
 }
 
-body, #loginContainer  {
+body, #loginContainer, #titleContainer  {
   background: #ff9068; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient($light-pink, $dark-pink); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient($light-pink, $dark-pink); /* For Opera 11.1 to 12.0 */
