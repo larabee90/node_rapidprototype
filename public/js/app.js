@@ -4,6 +4,9 @@
 
 ///////////////////////////////////////////////////
 $( document ).ready(function() {
+
+
+
     var colours = ["red", "green", "blue"];
     var username = "";
     var userColour =  "";
@@ -12,6 +15,8 @@ $( document ).ready(function() {
     var isLoggedIn = false;
     var scale = 1.0;
     var users= [];
+
+    var projectTitle = "";
 
     // Initialize Firebase
     var config = {
@@ -29,6 +34,8 @@ $( document ).ready(function() {
     var enterUsername = document.getElementById("enterUsername");
     var usernameInput = document.getElementById("usernameInput");
     var usernameSubmit = document.getElementById("usernameSubmit");
+
+    $("#loginTitle").hide();
 
     var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -76,6 +83,21 @@ $( document ).ready(function() {
 
         }
     });
+
+    if (users.length === 1) {
+        $("#loginTitle").show();
+    }
+
+    document.forms[0].onsubmit = function () {
+
+        var input = document.getElementById("titleInput");
+        //printMessage(input.value);
+        socket.emit("setProjectTitle", input.value);
+        input.value = '';
+
+    }
+
+
 
     var mouse = {
         click: false,
@@ -199,7 +221,7 @@ var socket = io("http://localhost:3000");
     });
 
 
-    document.forms[0].onsubmit = function () {
+    document.forms[1].onsubmit = function () {
         var input = document.getElementById("message");
         //printMessage(input.value);
         socket.emit("chat", input.value, username, userColour);
