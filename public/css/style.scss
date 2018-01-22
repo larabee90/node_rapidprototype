@@ -50,6 +50,7 @@ body, #loginContainer, #titleContainer  {
   grid-template-rows: 2em 4em auto 4em;
   grid-gap: 0.5em;
   align-items: center;
+  z-index: 997
 }
 
 #appName {
@@ -202,7 +203,7 @@ h1 {
 
 
 
-#loginContainer {
+#loginContainer, #titleContainer {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -215,7 +216,12 @@ h1 {
   align-items: center;
 
 }
-#enterUsername, #projectTitle {
+
+#titleContainer {
+  z-index: 998;
+}
+
+#enterUsername, #projectTitle{
   padding:10px;
   background-color: rgba($white, $alpha);
   grid-column-start: 5;

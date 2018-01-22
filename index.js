@@ -29,6 +29,10 @@ var nextID = 0;
 
 var coloursAvailable = ["#FA4C61", "#52A2FF", "#50E3C2", "#F8E71C"];
 
+var titleIsSet = false
+var projectTitle = ""
+
+
 
 
 // event-handler for new incoming connections
@@ -36,6 +40,9 @@ io.on('connection', function (socket) {
 
     //// NEW CANVAS
     // first send the history to the new client
+    if (users.length < 0 ) {
+        socket.emit("changeProjectTitle");
+    }
 
     function drawAllLines(){
         for (var i in linesDrawn) {
@@ -113,7 +120,7 @@ io.on('connection', function (socket) {
         for(i = 0; i < users.length; i++) {
             console.log("loop works");
             console.log(users.length);
-            socket.emit("newUser", users[i].name , users[i].colour, users[i].userID);
+            socket.emit("newUser", users[i].name , users[i].colour, users[i].userID, titleIsSet);
 
         }
         //delete instructions in messages div if there have already been messages posted
@@ -133,7 +140,7 @@ io.on('connection', function (socket) {
         socket.emit("assignColour", user.colour);
 
         //add new users to active user's legend (top right) in previously signed in users interface
-        socket.broadcast.emit("newUser", username, user.colour, user.userID);
+        socket.broadcast.emit("newUser", username, user.colour, user.userID, titleIsSet);
 
         //delete colour assigned from array
         coloursAvailable.shift();
@@ -143,6 +150,8 @@ io.on('connection', function (socket) {
 
     socket.on("setProjectTitle", function(title){
         io.emit("changeProjectTitle", title);
+        projectTitle = title;
+        titleIsSet = true;
     });
 
 

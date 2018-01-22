@@ -6,6 +6,7 @@
 $( document ).ready(function() {
 
 
+    $("#titleContainer").hide();
 
     var colours = ["red", "green", "blue"];
     var username = "";
@@ -15,6 +16,7 @@ $( document ).ready(function() {
     var isLoggedIn = false;
     var scale = 1.0;
     var users= [];
+    var titleIsSet = false;
 
     var projectTitle = "";
 
@@ -34,6 +36,8 @@ $( document ).ready(function() {
     var enterUsername = document.getElementById("enterUsername");
     var usernameInput = document.getElementById("usernameInput");
     var usernameSubmit = document.getElementById("usernameSubmit");
+
+
 
 
 
@@ -78,17 +82,11 @@ $( document ).ready(function() {
         {
             console.log( 'LOGGED IN' );
             console.log( user.displayName );
-            username = user.displayName
+            username = user.displayName;
             isLoggedIn = true;
             socket.emit("addUsername", username);
             $(loginContainer).hide();
 
-            if (users.length < 0) {
-                $("#titleContainer").hide();
-
-            } else {
-                console.log("user needs to set title");
-            }
 
         } else {
             isLoggedIn = false;
@@ -333,7 +331,7 @@ desktopButton.onclick = function () {
 
     }
 
-    socket.on("newUser", function (user, colour, userID) {
+    socket.on("newUser", function (user, colour, userID, titleSet) {
         if (isLoggedIn) {
             console.log("new user added: " + user);
             console.log(user + " colour is " + colour);
@@ -349,6 +347,8 @@ desktopButton.onclick = function () {
             console.log(users);
             console.log(users.length);
 
+
+
         }
     });
 
@@ -361,13 +361,15 @@ desktopButton.onclick = function () {
         socket.emit("setProjectTitle", input.value);
         input.value = '';
         console.log("title submit running");
-        $("#projectTitle").hide();
+
 
     }
 
     socket.on("changeProjectTitle", function(title){
+        $("#titleContainer").show();
         document.getElementById("title").innerHTML = title;
         console.log("title change should've ran");
+        titleIsSet = true;
     });
 
 
