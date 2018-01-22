@@ -69,6 +69,11 @@ $( document ).ready(function() {
             console.log( user );
             console.log( user.uid );
             console.log( user.displayName );
+            username = user.displayName
+            isLoggedIn = true;
+            socket.emit("addUsername", username);
+            $(loginContainer).hide();
+
         }
     });
 
@@ -194,7 +199,7 @@ var socket = io("http://localhost:3000");
     });
 
 
-    document.forms[1].onsubmit = function () {
+    document.forms[0].onsubmit = function () {
         var input = document.getElementById("message");
         //printMessage(input.value);
         socket.emit("chat", input.value, username, userColour);
@@ -329,14 +334,14 @@ desktopButton.onclick = function () {
 
 
 
-    document.getElementById("loginForm").onsubmit = function () {
-        username = usernameInput.value
-        isLoggedIn = true;
-        socket.emit("addUsername", username);
-        $(loginContainer).hide();
-
-
-    };
+    // document.getElementById("loginForm").onsubmit = function () {
+    //     username = usernameInput.value
+    //     isLoggedIn = true;
+    //     socket.emit("addUsername", username);
+    //     $(loginContainer).hide();
+    //
+    //
+    // };
 
     socket.on("assignColour", function(colour){
         userColour = colour;
