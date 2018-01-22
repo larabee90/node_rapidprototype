@@ -322,6 +322,21 @@ h1 {
   }
 }
 
+#googleSignOut {
+  height: 50px;
+  position: absolute;
+  left: 1080px;
+  top: 20px;
+  background-color: $grey;
+  color: $white;
+  text-align: center;
+  font-size: 0.9em;
+  font-weight: $font-med;
+  padding: 0.5em 1em 0.5em 1em;
+  border: none;
+
+}
+
 .activeUser {
   display: inline-block;
   margin-right: 0.5em;
