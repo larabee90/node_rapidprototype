@@ -97,10 +97,8 @@ io.on('connection', function (socket) {
     ///// NEW USER ADDED
 
     socket.on("addUsername", function(username) {
-
         //add new users to the list of actives
         var user = {
-
             'name': username,
             'colour': coloursAvailable[0],
             'userID': nextID
@@ -109,22 +107,18 @@ io.on('connection', function (socket) {
         users.push(user);
         nextID++;
 
-
         //get all the active users indicated at top right for new user
         for(i = 0; i < users.length; i++) {
             socket.emit("newUser", users[i].name , users[i].colour, users[i].userID, titleIsSet);
-
         }
+
         //delete instructions in messages div if there have already been messages posted
         if(messages.length !== 0){
-
             socket.emit("deleteWelcomeMessage");
         };
 
-
         //get all the messages that have been sent to the chat before the new user signed in
         for(i=0; i<messages.length; i++){
-
             socket.emit("message", messages[i].message, messages[i].username, messages[i].colour);
         }
 
@@ -144,8 +138,6 @@ io.on('connection', function (socket) {
         if (currentTemplate !== "") {
             socket.emit("newTemplate", currentTemplate);
         };
-
-
     });
 
     socket.on("setProjectTitle", function(title){
@@ -154,9 +146,7 @@ io.on('connection', function (socket) {
         titleIsSet = true;
     });
 
-
 });
-
 
 console.log('app listening on port 3000');
 
