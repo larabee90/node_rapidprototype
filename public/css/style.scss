@@ -1,8 +1,10 @@
 //imports
 @import url('https://fonts.googleapis.com/css?family=Work+Sans:300,400,500');
+@import url('https://fonts.googleapis.com/css?family=Roboto:500');
 
 //variables
 $work-sans: 'Work Sans', sans-serif;
+$roboto: 'Roboto', sans-serif;
 $font-bold: 600;
 $font-med: 500;
 $font-light: 300;
@@ -289,7 +291,36 @@ h1 {
       display:inline;
     }
 }
-//sfjsdfsdfsdfdss
+
+#googleSignIn {
+  display: inline-block;
+  background: white;
+  color: #444;
+  //width: 200px;
+  border-radius: 5px;
+  border: thin solid rgba(0,0,0,0.2);
+  //box-shadow: 1px 1px 1px rgba(0,0,0,0.54);
+  white-space: nowrap;
+  &:hover {
+    cursor: pointer;
+  }
+  & span.googleIcon {
+    background: url('../img/googleLogo.png') transparent 5px 50% no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    width: 42px;
+    height: 42px;
+    padding-left: 10px;
+  }
+  & span.googleBtnText {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-right: 42px;
+    font-size: 14px;
+    font-family: $roboto;
+  }
+}
 
 .activeUser {
   display: inline-block;

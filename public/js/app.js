@@ -32,7 +32,7 @@ $( document ).ready(function() {
 
     var provider = new firebase.auth.GoogleAuthProvider();
 
-    $('button').click(function(){
+    $('#googleSignIn').click(function(){
         firebase.auth().signInWithRedirect(provider);
     });
 
