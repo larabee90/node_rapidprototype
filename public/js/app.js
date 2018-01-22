@@ -6,137 +6,125 @@
 $( document ).ready(function() {
 
 
-    $("#titleContainer").hide();
+$("#titleContainer").hide();
 
-    var colours = ["red", "green", "blue"];
-    var username = "";
-    var userColour =  "";
-    var typing = false;
-    var lastTypingTime;
-    var isLoggedIn = false;
-    var scale = 1.0;
-    var users= [];
-    var titleIsSet = false;
-
-    var projectTitle = "";
-
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyCO_ZMnTNY_WwmbfYoZ-6TAyAqML0Zta5s",
-        authDomain: "teamproto-192820.firebaseapp.com",
-        databaseURL: "https://teamproto-192820.firebaseio.com",
-        projectId: "teamproto-192820",
-        storageBucket: "teamproto-192820.appspot.com",
-        messagingSenderId: "201860244753"
-    };
-    firebase.initializeApp(config);
+var colours = ["red", "green", "blue"];
+var username = "";
+var userColour =  "";
+var isLoggedIn = false;
+var users= [];
+var titleIsSet = false;
 
 
-    var loginContainer = document.getElementById("loginContainer");
-    var enterUsername = document.getElementById("enterUsername");
-    var usernameInput = document.getElementById("usernameInput");
-    var usernameSubmit = document.getElementById("usernameSubmit");
+var loginContainer = document.getElementById("loginContainer");
+var enterUsername = document.getElementById("enterUsername");
+var usernameInput = document.getElementById("usernameInput");
+var usernameSubmit = document.getElementById("usernameSubmit");
+
+var projectTitle = "";
+
+//connection
+
+var socket = io.connect();
 
 
 
 
+socket.on("disconnect", function() {
+    console.log("disconnected");
+});
 
-    var provider = new firebase.auth.GoogleAuthProvider();
-
-    $('#googleSignIn').click(function(){
-        firebase.auth().signInWithRedirect(provider);
-    });
-
-    $('#googleSignOut').click(function(){
-       firebase.auth().signOut();
-    });
-
-    firebase.auth().getRedirectResult().then(function(result) {
-
-        if( result.credential )
-        {
-
-            var token = result.credential.accessToken;
-
-            var user = result.user;
-
-            firebase.database().ref('users/'+user.uid).set({
-                name: user.displayName,
-                email: user.email,
-                token: token,
-                user: user.uid
-            });
-
-        }
+socket.on("connect", function() {
+    console.log("connected");
+});
 
 
-    }).catch(function(error) {
+// Initialize Firebase
 
-        console.log( error.code );
-        console.log( error.message );
-
-    });
-
-    firebase.auth().onAuthStateChanged(function(user){
-        if(user)
-        {
-            console.log( 'LOGGED IN' );
-            console.log( user.displayName );
-            username = user.displayName;
-            isLoggedIn = true;
-            socket.emit("addUsername", username);
-            $(loginContainer).hide();
+var config = {
+    apiKey: "AIzaSyCO_ZMnTNY_WwmbfYoZ-6TAyAqML0Zta5s",
+    authDomain: "teamproto-192820.firebaseapp.com",
+    databaseURL: "https://teamproto-192820.firebaseio.com",
+    projectId: "teamproto-192820",
+    storageBucket: "teamproto-192820.appspot.com",
+    messagingSenderId: "201860244753"
+};
+firebase.initializeApp(config);
 
 
-        } else {
-            isLoggedIn = false;
-            $(loginContainer).show();
-            $('#activeUsers').css('z-index', -9999);
-        }
-    });
+var provider = new firebase.auth.GoogleAuthProvider();
+
+$('#googleSignIn').click(function(){
+    firebase.auth().signInWithRedirect(provider);
+});
+
+$('#googleSignOut').click(function(){
+   firebase.auth().signOut();
+});
+
+firebase.auth().getRedirectResult().then(function(result) {
+
+    if( result.credential )
+    {
+
+        var token = result.credential.accessToken;
+
+        var user = result.user;
+
+        firebase.database().ref('users/'+user.uid).set({
+            name: user.displayName,
+            email: user.email,
+            token: token,
+            user: user.uid
+        });
+
+    }
+
+
+}).catch(function(error) {
+
+    console.log( error.code );
+    console.log( error.message );
+
+});
+
+firebase.auth().onAuthStateChanged(function(user){
+    if(user)
+    {
+        console.log( 'LOGGED IN' );
+        console.log( user.displayName );
+        username = user.displayName;
+        isLoggedIn = true;
+        socket.emit("addUsername", username);
+        $(loginContainer).hide();
+
+
+    } else {
+        isLoggedIn = false;
+        $(loginContainer).show();
+        $('#activeUsers').css('z-index', -9999);
+    }
+});
 
 
 
 
-
-    var mouse = {
-        click: false,
-        move: false,
-        pos: {x: 32, y: 132},
-        pos_prev: false
-    };
-    // get canvas element and create context
-    var canvas = document.getElementById('paintCanvas');
-    var canvasContainer = document.getElementById('canvasContainer');
-    var context = canvas.getContext('2d');
-
-    var width = 742;
-    var height = 600;
-
-    // var width = $('#canvasContainer').width();
-    // var height = $('#canvasContainer').height();
+var mouse = {
 
     function respondCanvas(){
-        canvas.width =  $('#canvasContainer').width();
-        canvas.height =  $('#canvasContainer').height();
-    };
+    canvas.width =  $('#canvasContainer').width();
+    canvas.height =  $('#canvasContainer').height();
+};
 
 
-
-
-
-    var socket = io.connect();
-    // respondCanvas();
-
-
-    // set canvas width and height
+// set canvas width and height
     canvas.width = width;
     canvas.height = height;
 
     var tool = 'pen';
 
 
-    // register mouse event handlers
+// register mouse event handlers
     canvas.onmousedown = function(e){ mouse.click = true; };
     canvas.onmouseup = function(e){ mouse.click = false; };
 
@@ -152,15 +140,15 @@ $( document ).ready(function() {
     });
 
     $('#eraserMode').click(function(){
-       tool = 'eraser';
+        tool = 'eraser';
     });
 
-    // draw line received from server
+// draw line received from server
     socket.on('draw_line', function (data, colour, tool) {
         var line = data.line;
         context.beginPath();
         var rect = canvas.getBoundingClientRect();
-        
+
         context.moveTo(line[0].x * width - rect.left, line[0].y * height - rect.top);
         context.lineTo(line[1].x * width - rect.left, line[1].y * height - rect.top);
 
@@ -175,70 +163,75 @@ $( document ).ready(function() {
         }
         context.stroke();
 
-    });
+    });        click: false,
+        move: false,
+        pos: {x: 32, y: 132},
+        pos_prev: false
+    };
+    // get canvas element and create context
+    var canvas = document.getElementById('paintCanvas');
+    var canvasContainer = document.getElementById('canvasContainer');
+    var context = canvas.getContext('2d');
 
-    // main loop, running every 25ms
-    function mainLoop() {
-        // check if the user is drawing
-        if (mouse.click && mouse.move && mouse.pos_prev) {
-            // send line to to the server
-            socket.emit('draw_line', { line: [ mouse.pos, mouse.pos_prev ] }, userColour, tool);
-            mouse.move = false;
-        }
-        mouse.pos_prev = {x: mouse.pos.x, y: mouse.pos.y};
-        setTimeout(mainLoop, 25);
+    var width = 742;
+    var height = 600;
+
+    // var width = $('#canvasContainer').width();
+
+
+// main loop, running every 25ms
+function mainLoop() {
+    // check if the user is drawing
+    if (mouse.click && mouse.move && mouse.pos_prev) {
+        // send line to to the server
+        socket.emit('draw_line', { line: [ mouse.pos, mouse.pos_prev ] }, userColour, tool);
+        mouse.move = false;
     }
-    mainLoop();
-
-//////////////////////////////////////
-
-//chat tings
-
-var socket = io("http://localhost:3000");
-
-    socket.on("disconnect", function() {
-
-    });
-
-    socket.on("connect", function() {
-
-    });
-
-    socket.on("deleteWelcomeMessage", function(){
-        console.log("ran");
-        $("#messages").empty();
-    });
-
-    socket.on("message", function (message, user, colour) {
-        if (isLoggedIn) {
-
-            printMessage(message, user, colour);
-        } else {
-          console.log("User has not yet logged in");
-        };
-
-    });
+    mouse.pos_prev = {x: mouse.pos.x, y: mouse.pos.y};
+    setTimeout(mainLoop, 25);
+}
+mainLoop();
 
 
-    document.forms[1].onsubmit = function () {
-        var input = document.getElementById("message");
-        //printMessage(input.value);
-        socket.emit("chat", input.value, username, userColour);
-        input.value = '';
+
+
+//message related
+
+
+socket.on("deleteWelcomeMessage", function(){
+    console.log("ran");
+    $("#messages").empty();
+});
+
+socket.on("message", function (message, user, colour) {
+    if (isLoggedIn) {
+
+        printMessage(message, user, colour);
+    } else {
+      console.log("User has not yet logged in");
     };
 
+});
 
 
-    function printMessage(message, user, colour) {
-        var p = document.createElement("p");
-        console.log(message, user, colour);
-        p.innerHTML = "<span style = 'color:" + colour + "'>" + user + ": </span>" + message;
+document.forms[1].onsubmit = function () {
+    var input = document.getElementById("message");
+    //printMessage(input.value);
+    socket.emit("chat", input.value, username, userColour);
+    input.value = '';
+};
 
-        $("#messages")[0].appendChild(p);
-    }
 
-//button tings
 
+function printMessage(message, user, colour) {
+    var p = document.createElement("p");
+    console.log(message, user, colour);
+    p.innerHTML = "<span style = 'color:" + colour + "'>" + user + ": </span>" + message;
+
+    $("#messages")[0].appendChild(p);
+}
+
+//Template buttons
 
 var canvas = document.getElementById('paintCanvas');
 var context = canvas.getContext('2d');
@@ -276,83 +269,68 @@ desktopButton.onclick = function () {
     socket.emit("newTemplate", img);
 };
 
-//login tings
 
-    //active user hover
+//makes new user legend circle
 
+socket.on("newUser", function (user, colour, userID) {
+    if (isLoggedIn) {
 
-    function makeUserLabel (user, userID) {
-
-            var activeUser = document.getElementById(userID);
-
-            //makes the hover element
-            var newUserHover = document.createElement("p");
-
-            //give class and id
-            $(newUserHover).addClass("userHover");
-            newUserHover.id = "hover" + user;
-
-
-
-
-            //
-            // console.log(activeUserPosition.x, activeUserPosition,y);
-            //
-            // //change the position so its just under the name
-            // $(userHoverId).css({"top": yPositionHover, "left": activeUserPosition.x});
-
-            $(activeUser).hover(
-
-                function(){
-                    console.log("hovered");
-
-                    var x =   $(activeUser).offset().left + 4;
-
-                    //still need to lower this a bit
-                    var y = $(activeUser).offset().top - 34;
-
-                    $(newUserHover).css({
-                        "top": y,
-                        "left": x
-
-                    })
-                    newUserHover.innerText = user;
-                    document.getElementsByTagName("body")[0].appendChild(newUserHover);
-                    console.log(activeUser.id);
-
-                },
-                function() {
-                    console.log("unhovered");
-                    $(newUserHover).remove();
-                }
-
-            );
-
+        var newUser = document.createElement("div");
+        $(newUser).addClass("activeUser");
+        newUser.id = userID.toString();
+        $(newUser).css("background-color" , colour);
+        document.getElementById("activeUsers").appendChild(newUser);
+        colours.shift();
+        users.push(user);
+        makeUserLabel(user, userID);
 
     }
+});
 
-    socket.on("newUser", function (user, colour, userID, titleSet) {
-        if (isLoggedIn) {
-            console.log("new user added: " + user);
-            console.log(user + " colour is " + colour);
+//makes hover label for the user legend
 
-            var newUser = document.createElement("div");
-            $(newUser).addClass("activeUser");
-            newUser.id = userID.toString();
-            $(newUser).css("background-color" , colour);
-            document.getElementById("activeUsers").appendChild(newUser);
-            colours.shift();
-            users.push(user);
-            makeUserLabel(user, userID);
-            console.log(users);
-            console.log(users.length);
+function makeUserLabel (user, userID) {
+
+    var activeUser = document.getElementById(userID);
+
+    //makes the hover element
+    var newUserHover = document.createElement("p");
+
+    //give class and id
+    $(newUserHover).addClass("userHover");
+    newUserHover.id = "hover" + user;
 
 
+    $(activeUser).hover(
 
+        function(){
+
+            var x =   $(activeUser).offset().left + 4;
+
+            var y = $(activeUser).offset().top - 34;
+
+            $(newUserHover).css({
+                "top": y,
+                "left": x
+
+            })
+            newUserHover.innerText = user;
+            document.getElementsByTagName("body")[0].appendChild(newUserHover);
+
+
+        },
+
+        function() {
+            console.log("unhovered");
+            $(newUserHover).remove();
         }
-    });
+
+    );
 
 
+}
+
+    //project title change
 
     document.forms[0].onsubmit = function () {
 
@@ -360,42 +338,36 @@ desktopButton.onclick = function () {
         //printMessage(input.value);
         socket.emit("setProjectTitle", input.value);
         input.value = '';
-        console.log("title submit running");
         $("#titleContainer").hide();
 
 
     }
+
+    //shows project title change window if it's first user
 
     socket.on("showTitleWindow", function(title){
         $("#titleContainer").show();
 
     });
 
+    //changes the project title on top
+
     socket.on("changeProjectTitle", function(title){
         document.getElementById("title").innerHTML = title;
-        console.log("title change should've ran");
         titleIsSet = true;
 
 
     });
 
 
-
-
-
-    // document.getElementById("loginForm").onsubmit = function () {
-    //     username = usernameInput.value
-    //     isLoggedIn = true;
-    //     socket.emit("addUsername", username);
-    //     $(loginContainer).hide();
-    //
-    //
-    // };
+    //assign user a colour for the legend
 
     socket.on("assignColour", function(colour){
         userColour = colour;
-        console.log(colour);
     });
+
+
+    //download the canvas
 
     function downloadCanvas(link, canvas, filename) {
         link.href = document.getElementById(canvas).toDataURL();

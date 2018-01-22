@@ -90,6 +90,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on("newTemplate", function(img){
+        currentTemplate = img;
         io.emit("drawTemplate", img);
     });
 
@@ -111,8 +112,6 @@ io.on('connection', function (socket) {
 
         //get all the active users indicated at top right for new user
         for(i = 0; i < users.length; i++) {
-            console.log("loop works");
-            console.log(users.length);
             socket.emit("newUser", users[i].name , users[i].colour, users[i].userID, titleIsSet);
 
         }
@@ -140,6 +139,11 @@ io.on('connection', function (socket) {
 
         //change title
         socket.emit("changeProjectTitle", projectTitle);
+
+        //gives them current template if there is one set by other users
+        if (currentTemplate !== "") {
+            socket.emit("newTemplate", currentTemplate);
+        };
 
 
     });
