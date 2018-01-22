@@ -77,8 +77,6 @@ $( document ).ready(function() {
         if(user)
         {
             console.log( 'LOGGED IN' );
-            console.log( user );
-            console.log( user.uid );
             console.log( user.displayName );
             username = user.displayName
             isLoggedIn = true;
@@ -88,6 +86,7 @@ $( document ).ready(function() {
         } else {
             isLoggedIn = false;
             $(loginContainer).show();
+            $('#activeUsers').css('z-index', -9999);
         }
     });
 
