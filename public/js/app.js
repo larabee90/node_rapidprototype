@@ -23,12 +23,14 @@ var usernameSubmit = document.getElementById("usernameSubmit");
 
 var projectTitle = "";
 
+// get canvas element and create context
+var canvas = document.getElementById('paintCanvas');
+var canvasContainer = document.getElementById('canvasContainer');
+var context = canvas.getContext('2d');
+
 //connection
 
 var socket = io.connect();
-
-
-
 
 socket.on("disconnect", function() {
     console.log("disconnected");
@@ -40,7 +42,6 @@ socket.on("connect", function() {
 
 
 // Initialize Firebase
-
 var config = {
     apiKey: "AIzaSyCO_ZMnTNY_WwmbfYoZ-6TAyAqML0Zta5s",
     authDomain: "teamproto-192820.firebaseapp.com",
@@ -64,28 +65,21 @@ $('#googleSignOut').click(function(){
 
 firebase.auth().getRedirectResult().then(function(result) {
 
-    if( result.credential )
-    {
-
+    if( result.credential ) {
         var token = result.credential.accessToken;
-
         var user = result.user;
 
-        firebase.database().ref('users/'+user.uid).set({
+        firebase.database().ref('users/' + user.uid).set({
             name: user.displayName,
             email: user.email,
             token: token,
             user: user.uid
         });
-
     }
 
-
 }).catch(function(error) {
-
     console.log( error.code );
     console.log( error.message );
-
 });
 
 firebase.auth().onAuthStateChanged(function(user){
@@ -97,8 +91,6 @@ firebase.auth().onAuthStateChanged(function(user){
         isLoggedIn = true;
         socket.emit("addUsername", username);
         $(loginContainer).hide();
-
-
     } else {
         isLoggedIn = false;
         $(loginContainer).show();
@@ -106,77 +98,69 @@ firebase.auth().onAuthStateChanged(function(user){
     }
 });
 
-
-
-
+//mouse properties
 var mouse = {
-
-    function respondCanvas(){
-    canvas.width =  $('#canvasContainer').width();
-    canvas.height =  $('#canvasContainer').height();
+    click: false,
+    move: false,
+    pos: {x: 32, y: 132},
+    pos_prev: false
 };
 
+var width = 742;
+var height = 600;
+
+function respondCanvas() {
+    canvas.width = $('#canvasContainer').width();
+    canvas.height = $('#canvasContainer').height();
+};
 
 // set canvas width and height
-    canvas.width = width;
-    canvas.height = height;
+canvas.width = width;
+canvas.height = height;
 
-    var tool = 'pen';
+var tool = 'pen';
 
 
 // register mouse event handlers
-    canvas.onmousedown = function(e){ mouse.click = true; };
-    canvas.onmouseup = function(e){ mouse.click = false; };
+canvas.onmousedown = function(e){ mouse.click = true; };
+canvas.onmouseup = function(e){ mouse.click = false; };
 
-    canvas.onmousemove = function(e) {
-        mouse.pos.x = e.clientX / width;
-        mouse.pos.y = e.clientY / height;
-        mouse.move = true;
+canvas.onmousemove = function(e) {
+    mouse.pos.x = e.clientX / width;
+    mouse.pos.y = e.clientY / height;
+    mouse.move = true;
 
-    };
+};
 
-    $('#penMode').click(function(){
-        tool = 'pen';
-    });
+$('#penMode').click(function(){
+    tool = 'pen';
+});
 
-    $('#eraserMode').click(function(){
-        tool = 'eraser';
-    });
+$('#eraserMode').click(function(){
+    tool = 'eraser';
+});
 
 // draw line received from server
-    socket.on('draw_line', function (data, colour, tool) {
-        var line = data.line;
-        context.beginPath();
-        var rect = canvas.getBoundingClientRect();
+socket.on('draw_line', function (data, colour, tool) {
+    var line = data.line;
+    context.beginPath();
+    var rect = canvas.getBoundingClientRect();
 
-        context.moveTo(line[0].x * width - rect.left, line[0].y * height - rect.top);
-        context.lineTo(line[1].x * width - rect.left, line[1].y * height - rect.top);
+    context.moveTo(line[0].x * width - rect.left, line[0].y * height - rect.top);
+    context.lineTo(line[1].x * width - rect.left, line[1].y * height - rect.top);
 
-        context.lineCap = 'round';
-        if (tool === 'eraser') {
-            colour = "#ffffff";
-            context.lineWidth = 15;
-            context.strokeStyle = colour;
-        } else {
-            context.lineWidth = 5;
-            context.strokeStyle = colour;
-        }
-        context.stroke();
+    context.lineCap = 'round';
+    if (tool === 'eraser') {
+        colour = "#ffffff";
+        context.lineWidth = 15;
+        context.strokeStyle = colour;
+    } else {
+        context.lineWidth = 5;
+        context.strokeStyle = colour;
+    }
+    context.stroke();
 
-    });        click: false,
-        move: false,
-        pos: {x: 32, y: 132},
-        pos_prev: false
-    };
-    // get canvas element and create context
-    var canvas = document.getElementById('paintCanvas');
-    var canvasContainer = document.getElementById('canvasContainer');
-    var context = canvas.getContext('2d');
-
-    var width = 742;
-    var height = 600;
-
-    // var width = $('#canvasContainer').width();
+});
 
 
 // main loop, running every 25ms
@@ -193,10 +177,7 @@ function mainLoop() {
 mainLoop();
 
 
-
-
 //message related
-
 
 socket.on("deleteWelcomeMessage", function(){
     console.log("ran");
@@ -216,12 +197,9 @@ socket.on("message", function (message, user, colour) {
 
 document.forms[1].onsubmit = function () {
     var input = document.getElementById("message");
-    //printMessage(input.value);
     socket.emit("chat", input.value, username, userColour);
     input.value = '';
 };
-
-
 
 function printMessage(message, user, colour) {
     var p = document.createElement("p");
@@ -232,24 +210,23 @@ function printMessage(message, user, colour) {
 }
 
 //Template buttons
-
 var canvas = document.getElementById('paintCanvas');
 var context = canvas.getContext('2d');
 var img = document.createElement("img");
 
-    function drawTemplate(template) {
-        templateDiv = document.getElementById('templateImage');
-        backgroundImg = template;
+function drawTemplate(template) {
+    templateDiv = document.getElementById('templateImage');
+    backgroundImg = template;
 
-        templateDiv.style.backgroundImage = backgroundImg;
-        templateDiv.style.backgroundRepeat = 'no-repeat';
-        templateDiv.style.backgroundPosition = 'center';
-        console.log('bg');
-    };
+    templateDiv.style.backgroundImage = backgroundImg;
+    templateDiv.style.backgroundRepeat = 'no-repeat';
+    templateDiv.style.backgroundPosition = 'center';
+    console.log('bg');
+};
 
 socket.on("drawTemplate", function (template) {
         drawTemplate(template);
-    });
+});
 
 mobileButton.onclick = function () {
     var img = "url(../img/iPhoneTemplate.png)";
@@ -271,7 +248,6 @@ desktopButton.onclick = function () {
 
 
 //makes new user legend circle
-
 socket.on("newUser", function (user, colour, userID) {
     if (isLoggedIn) {
 
@@ -288,9 +264,7 @@ socket.on("newUser", function (user, colour, userID) {
 });
 
 //makes hover label for the user legend
-
 function makeUserLabel (user, userID) {
-
     var activeUser = document.getElementById(userID);
 
     //makes the hover element
@@ -300,89 +274,72 @@ function makeUserLabel (user, userID) {
     $(newUserHover).addClass("userHover");
     newUserHover.id = "hover" + user;
 
-
-    $(activeUser).hover(
-
-        function(){
+    $(activeUser).hover(function(){
 
             var x =   $(activeUser).offset().left + 4;
-
             var y = $(activeUser).offset().top - 34;
 
             $(newUserHover).css({
                 "top": y,
                 "left": x
+            });
 
-            })
             newUserHover.innerText = user;
             document.getElementsByTagName("body")[0].appendChild(newUserHover);
-
-
         },
 
         function() {
             console.log("unhovered");
             $(newUserHover).remove();
         }
-
     );
-
-
 }
 
-    //project title change
+//project title change
+document.forms[0].onsubmit = function () {
 
-    document.forms[0].onsubmit = function () {
-
-        var input = document.getElementById("titleInput");
-        //printMessage(input.value);
-        socket.emit("setProjectTitle", input.value);
-        input.value = '';
-        $("#titleContainer").hide();
-
-
-    }
-
-    //shows project title change window if it's first user
-
-    socket.on("showTitleWindow", function(title){
-        $("#titleContainer").show();
-
-    });
-
-    //changes the project title on top
-
-    socket.on("changeProjectTitle", function(title){
-        document.getElementById("title").innerHTML = title;
-        titleIsSet = true;
+    var input = document.getElementById("titleInput");
+    //printMessage(input.value);
+    socket.emit("setProjectTitle", input.value);
+    input.value = '';
+    $("#titleContainer").hide();
 
 
-    });
+};
+
+//shows project title change window if it's first user
+
+socket.on("showTitleWindow", function(title){
+    $("#titleContainer").show();
+
+});
+
+//changes the project title on top
+
+socket.on("changeProjectTitle", function(title){
+    document.getElementById("title").innerHTML = title;
+    titleIsSet = true;
+});
 
 
-    //assign user a colour for the legend
+//assign user a colour for the legend
 
-    socket.on("assignColour", function(colour){
-        userColour = colour;
-    });
-
-
-    //download the canvas
-
-    function downloadCanvas(link, canvas, filename) {
-        link.href = document.getElementById(canvas).toDataURL();
-        link.download = filename;
-    }
-
-    document.getElementById('download').addEventListener('click', function() {
-        downloadCanvas(this, 'paintCanvas', 'team-proto.png');
-        
-    }, false);
+socket.on("assignColour", function(colour){
+    userColour = colour;
+});
 
 
+//download the canvas
 
+function downloadCanvas(link, canvas, filename) {
+    link.href = document.getElementById(canvas).toDataURL();
+    link.download = filename;
+}
 
+document.getElementById('download').addEventListener('click', function() {
+    downloadCanvas(this, 'paintCanvas', 'team-proto.png');
 
+}, false);
 
 
 

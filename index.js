@@ -151,7 +151,7 @@ io.on('connection', function (socket) {
 
         //gives them current template if there is one set by other users
         if (currentTemplate !== "") {
-            socket.emit("drawTemplate", currentTemplate);
+            socket.emit("newTemplate", currentTemplate);
         };
 
 
