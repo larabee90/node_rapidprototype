@@ -40,7 +40,7 @@ io.on('connection', function (socket) {
 
     //// NEW CANVAS
     // first send the history to the new client
-    if (users.length < 0 ) {
+    if (!titleIsSet) {
         socket.emit("changeProjectTitle");
     }
 
