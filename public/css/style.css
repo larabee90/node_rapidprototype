@@ -48,11 +48,6 @@ body, #loginContainer, #titleContainer {
 h1 {
   font-family: "Work Sans", sans-serif; }
 
-.color {
-  display: inline-block;
-  height: 48px;
-  width: 48px; }
-
 .toolbar {
   grid-row: 1 / 2;
   width: 100%;
@@ -170,6 +165,7 @@ h1 {
 
 #enterUsername, #projectTitle {
   padding: 10px;
+  margin: auto;
   background-color: rgba(255, 255, 255, 0.9);
   grid-column-start: 5;
   grid-column-end: 9;

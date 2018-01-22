@@ -6,6 +6,7 @@
  * Created by lauradouglas on 2017-12-09.
  */
 
+//connections
 var express = require('express');
 var http = require('http');
 var socketio = require('socket.io');
@@ -20,46 +21,41 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
 
+//chat messages, previously drawn lines, current users & user ID
 var messages=[];
-
 var linesDrawn = [];
-
 var users = [];
 var nextID = 0;
 
+//user colours
 var coloursAvailable = ["#FA4C61", "#52A2FF", "#50E3C2", "#F8E71C"];
 
-var titleIsSet = false
-var projectTitle = ""
-
-
-
+//project title
+var titleIsSet = false;
+var projectTitle = "";
 
 // event-handler for new incoming connections
 io.on('connection', function (socket) {
-
     //// NEW CANVAS
     // first send the history to the new client
+
+    //if the project title is not set, then set one
     if (!titleIsSet) {
-        console.log("there are " + users.length + " and the project title has not been set")
         socket.emit("showTitleWindow");
     }
 
+    //draw all previously drawn lines
     function drawAllLines(){
         for (var i in linesDrawn) {
             socket.emit('draw_line', { line: linesDrawn[i].line }, linesDrawn[i].colour, linesDrawn[i].tool );
         }
     }
 
-    drawAllLines()
+    drawAllLines();
 
     socket.on('getAllCanvasLines', function(){
-
         drawAllLines();
-
-
     });
-
 
     // add handler for message type "draw_line".
     socket.on('draw_line', function (data, colour, tool) {
@@ -68,19 +64,15 @@ io.on('connection', function (socket) {
         newLine.line = data.line;
         newLine.colour = colour;
         newLine.tool = tool;
-
         linesDrawn.push(newLine);
         // send line to all clients
         io.emit('draw_line', { line: data.line }, colour, tool);
     });
 
     ///// NEW MESSAGE SENT
-
     socket.on("chat", function(message, user, colour) {
-
         //delete welcome message if this is the first message sent to chat
         if(messages.length === 0){
-
             io.emit("deleteWelcomeMessage");
         }
 
@@ -92,9 +84,9 @@ io.on('connection', function (socket) {
             'username': user,
             'colour': colour,
             'message': message
-        }
-        messages.push(newMessage);
+        };
 
+        messages.push(newMessage);
     });
 
     socket.on("newTemplate", function(img){
