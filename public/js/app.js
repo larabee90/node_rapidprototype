@@ -370,6 +370,8 @@ desktopButton.onclick = function () {
         document.getElementById("title").innerHTML = title;
         console.log("title change should've ran");
         titleIsSet = true;
+        $("#titleContainer").hide();
+
     });
 
 
