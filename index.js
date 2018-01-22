@@ -43,7 +43,6 @@ io.on('connection', function (socket) {
     //// NEW CANVAS
     // first send the history to the new client
     if (!titleIsSet) {
-        console.log("there are " + users.length + " and the project title has not been set")
         socket.emit("showTitleWindow");
     }
 
@@ -122,8 +121,6 @@ io.on('connection', function (socket) {
 
         //get all the active users indicated at top right for new user
         for(i = 0; i < users.length; i++) {
-            console.log("loop works");
-            console.log(users.length);
             socket.emit("newUser", users[i].name , users[i].colour, users[i].userID, titleIsSet);
 
         }
