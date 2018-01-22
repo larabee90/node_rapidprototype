@@ -361,16 +361,21 @@ desktopButton.onclick = function () {
         socket.emit("setProjectTitle", input.value);
         input.value = '';
         console.log("title submit running");
+        $("#titleContainer").hide();
 
 
     }
 
-    socket.on("changeProjectTitle", function(title){
+    socket.on("showTitleWindow", function(title){
         $("#titleContainer").show();
+
+    });
+
+    socket.on("changeProjectTitle", function(title){
         document.getElementById("title").innerHTML = title;
         console.log("title change should've ran");
         titleIsSet = true;
-        $("#titleContainer").hide();
+
 
     });
 

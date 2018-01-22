@@ -41,7 +41,8 @@ io.on('connection', function (socket) {
     //// NEW CANVAS
     // first send the history to the new client
     if (!titleIsSet) {
-        socket.emit("changeProjectTitle");
+        console.log("there are " + users.length + " and the project title has not been set")
+        socket.emit("showTitleWindow");
     }
 
     function drawAllLines(){
@@ -144,6 +145,9 @@ io.on('connection', function (socket) {
 
         //delete colour assigned from array
         coloursAvailable.shift();
+
+        //change title
+        socket.emit("changeProjectTitle", projectTitle);
 
 
     });
